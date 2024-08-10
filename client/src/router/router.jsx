@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import App from "../App.jsx"
-import Record from "../components/Record"
-import RecordList from "../components/RecordList"
+import Record from "../components/Record.jsx"
+import RecordList from "../components/RecordList.jsx"
 
 const router = createBrowserRouter([
     {
