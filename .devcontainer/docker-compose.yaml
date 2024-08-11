@@ -1,25 +1,31 @@
-version: '1'
+version: "1"
 services:
-  # Update this to the name of the service you want to work with in your docker-compose.yml file
   react-app:
-    # Uncomment if you want to override the service's Dockerfile to one in the .devcontainer 
-    # folder. Note that the path of the Dockerfile and context is relative to the *primary* 
-    # docker-compose.yml file (the first in the devcontainer.json "dockerComposeFile"
-    # array). The sample below assumes your primary file is in the root of your project.
-    #
-    # build:
-    #   context: .
-    #   dockerfile: .devcontainer/Dockerfile
-
+    image: react-app
+    stdin_open: true
+    ports: 
+      - "5173:5173"
+    networks:
+      - mern-app
+  api-server:
+    image: api-server
+    ports:
+      - "5000:5000"
+    networks:
+      - mern-app
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:3.6.19-xenial
+    ports:
+      - "27017:27017"
+    networks:
+      - mern-app
     volumes:
-      # Update this to wherever you want VS Code to mount the folder of your project
-      - ..:/workspaces:cached
-
-    # Uncomment the next four lines if you will use a ptrace-based debugger like C++, Go, and Rust.
-    # cap_add:
-    #   - SYS_PTRACE
-    # security_opt:
-    #   - seccomp:unconfined
-
-    # Overrides default command so things don't shut down after the process ends.
-    command: /bin/sh -c "while sleep 1000; do :; done"
+      - mongo-data:/data/db
+networks:
+  mern-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
