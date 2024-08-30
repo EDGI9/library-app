@@ -20,6 +20,6 @@ try {
     console.error("failed to connect", err);
 }
 
-let db = client.db("employees");
+let db = client.db("library");
 
 export default db

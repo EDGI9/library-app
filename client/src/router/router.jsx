@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import App from "../App.jsx"
-import Record from "../components/Record.jsx"
-import RecordList from "../components/RecordList.jsx"
+import Book from "../components/Book.jsx"
+import BookList from "../components/BookList.jsx"
 
 const router = createBrowserRouter([
     {
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
       element: <App />,
       children: [{
         path: "/",
-        element: <RecordList />,
+        element: <BookList />,
       }]
     },
     {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       element: <App />,
       children: [{
         path: "/edit/:id",
-        element: <Record />,
+        element: <Book />,
       }]
     },
     {
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <App />,
         children: [{
           path: "/create",
-          element: <Record />,
+          element: <Book />,
         }]
       }
     
