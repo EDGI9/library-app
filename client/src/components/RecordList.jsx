@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import recordsAPI from "../apis/records";
+
 
 const Record = (props) => (
   <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -41,7 +43,8 @@ export default function RecordList() {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5000/api/records/`);
+      const response = await fetch(recordsAPI.GET_ALL_RECORDS);
+
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -56,7 +59,8 @@ export default function RecordList() {
 
   // This method will delete a record
   async function deleteRecord(id) {
-    await fetch(`http://localhost:5000/api/records/${id}`, {
+    const url = recordsAPI.DELETE_RECORD.replace("{id}", id)
+    await fetch(url, {
       method: "DELETE",
     });
     const newRecords = records.filter((el) => el._id !== id);

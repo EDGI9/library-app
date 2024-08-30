@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import recordsAPI from "../apis/records";
 
 export default function Record() {
   const [form, setForm] = useState({
@@ -14,11 +15,10 @@ export default function Record() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id?.toString() || undefined;
+      const url = recordsAPI.GET_RECORD.replace("{id}",id);
       if(!id) return;
       setIsNew(false);
-      const response = await fetch(
-        `http://localhost:5000/api/records/${params.id.toString()}`
-      );
+      const response = await fetch(url);
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
         console.error(message);
@@ -47,11 +47,13 @@ export default function Record() {
   async function onSubmit(e) {
     e.preventDefault();
     const person = { ...form };
+    let url;
     try {
       let response;
       if (isNew) {
+        url = recordsAPI.CREATE_RECORD;
         // if we are adding a new record we will POST to /record.
-        response = await fetch("http://localhost:5000/api/records", {
+        response = await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -59,8 +61,9 @@ export default function Record() {
           body: JSON.stringify(person),
         });
       } else {
+        url = recordsAPI.UPDATE_RECORD.replace("{id}", params.id);
         // if we are updating a record we will PATCH to /record/:id.
-        response = await fetch(`http://localhost:5000/api/records/${params.id}`, {
+        response = await fetch(url, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
