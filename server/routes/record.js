@@ -7,19 +7,30 @@ import { ObjectId } from "mongodb";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    let collection = await db.collection("records");
-    let results = await collection.find({}).toArray();
-    req.setEncoding(results).status(200);
+    try {
+        let collection = await db.collection("records");
+        let results = await collection.find({}).toArray();
+        res.status(200).json(results);
+    } catch (err) {
+        console.error("Error fetching records", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 router.get("/:id", async (req, res) => {
-    let collection = await db.collection("records");
-    let query = {_id: new ObjectId(req.params.id) };
-    let result = await collection.find(query);
-    if (!result) {
-        res.send("Not Found").status(404)
-    } else {
-        req.setEncoding(result).status(200);
+    try {
+        let collection = await db.collection("records");
+        let query = { _id: new ObjectId(req.params.id) };
+        let result = await collection.findOne(query);
+
+        if (!result) {
+            return res.status(404).send("Not Found");
+        } else {
+            return res.status(200).json(result);
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send("Server Error");
     }
 });
 
@@ -32,10 +43,10 @@ router.post("/", async (req, res) => {
         }
         let collection = await db.collection("records");
         let result = await collection.insertOne(newDocument);
-        req.send(result).status(204);
+        res.send(result).status(204);
     } catch(err){
         console.error(err);
-        req.send("Error adding record").status(500);
+        res.send("Error adding record").status(500);
     }
 });
 
@@ -66,10 +77,10 @@ router.delete("/:id", async (req, res) => {
         const collection = db.collection("records");
         const result = collection.deleteOne(query);
 
-        req.send(result).status(200)
+        res.send(result).status(200)
     } catch (error) {
         console.error(err);
-        req.send("Error deleting record").status(500);
+        res.send("Error deleting record").status(500);
     }
 
 })
