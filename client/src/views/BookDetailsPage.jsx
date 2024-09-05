@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import booksAPI from "../apis/books";
 
-import Book from "../components/Book.jsx";
+import Pill from "../components/Pill.jsx";
 
 
 export default function BookDetailsPage () {
@@ -43,11 +43,12 @@ export default function BookDetailsPage () {
 
 
     function genreItems() {
-        return (bookDetails.genre.map((item,index) => {
+        return (bookDetails.genre?.map((item,index) => {
             return (
-                <div key={index} className="text-xs rounded-xl bg-slate-200 flex items-center justify-center py-1 px-2">
-                    {item}
-                </div>
+                <Pill
+                    key={index}
+                    text={item}
+                />
             )
         }))
     }

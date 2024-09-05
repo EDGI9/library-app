@@ -2,13 +2,20 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import booksAPI from "../apis/books";
 
-export default function Book() {
+import TextInput from "../components/TextInput.jsx";
+import Pill from "../components/Pill.jsx";
+
+
+export default function BookEditPage() {
   const [form, setForm] = useState({
     name: "",
-    position: "",
-    level: "",
+    description: "",
+    genre: [],
+    image: ""
   });
   const [isNew, setIsNew] = useState(true);
+  const [genreInputValue, setGenreInputValue] = useState('');
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -36,15 +43,29 @@ export default function Book() {
     return;
   }, [params.id, navigate]);
 
-  function updateForm(value) {
+  const updateForm = (value) => {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
   }
 
-  async function onSubmit(e) {
+  const addItem = (e) =>  {
     e.preventDefault();
-    const person = { ...form };
+    if (genreInputValue.trim() !== '') {
+      updateForm({genre: [...form.genre, genreInputValue]})
+      setGenreInputValue(''); 
+    }
+  };
+
+  const removeItem = (e,index) => {
+    e.preventDefault();
+    const updatedItems = form.genre.filter((_, i) => i !== index);
+    updateForm({genre: updatedItems})
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const book = { ...form };
     let url;
     try {
       let response;
@@ -55,7 +76,7 @@ export default function Book() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(person),
+          body: JSON.stringify(book),
         });
       } else {
         url = booksAPI.UPDATE_BOOK.replace("{id}", params.id);
@@ -64,7 +85,7 @@ export default function Book() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(person),
+          body: JSON.stringify(book),
         });
       }
 
@@ -74,7 +95,7 @@ export default function Book() {
     } catch (error) {
       console.error('A problem occurred adding or updating a book: ', error);
     } finally {
-      setForm({ name: "", position: "", level: "" });
+      setForm({ name: "", description: "", genre: [], image: ""});
       navigate("/");
     }
   }
@@ -97,102 +118,89 @@ export default function Book() {
             </p>
           </div>
 
-          <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium leading-6 text-slate-900"
-              >
-                Name
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="First Last"
-                    value={form.name}
-                    onChange={(e) => updateForm({ name: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="position"
-                className="block text-sm font-medium leading-6 text-slate-900"
-              >
-                Position
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    name="position"
-                    id="position"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Developer Advocate"
-                    value={form.position}
-                    onChange={(e) => updateForm({ position: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
+          <div className="grid grid-rows-4 flex flex-col max-w-2xl gap-x-6 gap-y-8 ">
             <div>
-              <fieldset className="mt-4">
-                <legend className="sr-only">Position Options</legend>
-                <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
-                  <div className="flex items-center">
-                    <input
-                      id="positionIntern"
-                      name="positionOptions"
-                      type="radio"
-                      value="Intern"
-                      className="h-4 w-4 border-slate-300 text-slate-600 focus:ring-slate-600 cursor-pointer"
-                      checked={form.level === "Intern"}
-                      onChange={(e) => updateForm({ level: e.target.value })}
-                    />
-                    <label
-                      htmlFor="positionIntern"
-                      className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
-                    >
-                      Intern
-                    </label>
-                    <input
-                      id="positionJunior"
-                      name="positionOptions"
-                      type="radio"
-                      value="Junior"
-                      className="h-4 w-4 border-slate-300 text-slate-600 focus:ring-slate-600 cursor-pointer"
-                      checked={form.level === "Junior"}
-                      onChange={(e) => updateForm({ level: e.target.value })}
-                    />
-                    <label
-                      htmlFor="positionJunior"
-                      className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
-                    >
-                      Junior
-                    </label>
-                    <input
-                      id="positionSenior"
-                      name="positionOptions"
-                      type="radio"
-                      value="Senior"
-                      className="h-4 w-4 border-slate-300 text-slate-600 focus:ring-slate-600 cursor-pointer"
-                      checked={form.level === "Senior"}
-                      onChange={(e) => updateForm({ level: e.target.value })}
-                    />
-                    <label
-                      htmlFor="positionSenior"
-                      className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
-                    >
-                      Senior
-                    </label>
+              <label
+                  htmlFor="name"
+                  className="block text-sm font-medium leading-6 text-slate-900"
+                >
+                  Name
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <TextInput 
+                      name="name"
+                      value={form.name}
+                      placeholder="Name" 
+                      onChange={(text) => updateForm({ name: text})}/>
                   </div>
                 </div>
-              </fieldset>
+            </div>
+            <div>
+                <label
+                  htmlFor="Description"
+                  className="block text-sm font-medium leading-6 text-slate-900"
+                >
+                  Description
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <textarea 
+                      placeholder="Book description"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+                      value={form.description}
+                      onChange={(e) => updateForm({ description: e.target.value })}></textarea>
+                  </div>
+                </div>
+            </div>
+            <div>
+              <label
+                  htmlFor="image"
+                  className="block text-sm font-medium leading-6 text-slate-900"
+                >
+                  Image
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <TextInput 
+                      name="image"
+                      value={form.image}
+                      placeholder="Image URL" 
+                      onChange={(text) => updateForm({ image: text})}/>
+                  </div>
+                </div>
+            </div>
+            <div>
+                <label
+                  htmlFor="genres"
+                  className="block text-sm font-medium leading-6 text-slate-900"
+                >
+                  Genres
+                </label>
+                <div className="flex flex-col mb-3">
+                    <div className="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                      
+                      <TextInput 
+                        name="genres"
+                        value={genreInputValue}
+                        placeholder="Genres"
+                        onChange={(text) => setGenreInputValue(text)}
+                      />
+                      
+                      <button className="w-[100px] p-0 bg-slate-200 rounded-tr-md rounded-br-md" onClick={addItem}>Add Item</button>
+                    </div>
+                </div>
+                <div className="flex gap-2">
+                  {form.genre?.map((item, index) => (
+                      <Pill
+                        key={index}
+                        text={item}
+                        actionText="x"
+                        isEditable={true}
+                        onClick={(e) => removeItem(e, index)}
+                      />
+                    ))}
+                </div>
             </div>
           </div>
         </div>
