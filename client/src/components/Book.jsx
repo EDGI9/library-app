@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 
-function actionButtons(props) {
+const actionButtons = (props) => {
     if (props.isEditable) {
         return (
         <div className="flex gap-2">
