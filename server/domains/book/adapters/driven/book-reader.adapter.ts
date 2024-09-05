@@ -5,7 +5,6 @@ import database from "../../../../config/database.js";
 import { ObjectId } from "mongodb";
 import { BookEntity } from "../../core/entities/book.entity.js";
 import { BookReaderDrivenPorts } from "../../ports/driven/book-reader-driven.ports.js";
-import { BookResourcePathConstants } from "../../core/constants/book-resource-path.constants.js";
 import { BookDatabase } from "../../core/constants/book-database.constants.js";
 
 export function BookReaderAdapter(): BookReaderDrivenPorts{
@@ -33,7 +32,7 @@ export function BookReaderAdapter(): BookReaderDrivenPorts{
         }
     }
 
-    async function getById(id: string) : Promise<BookEntity | null> {
+    async function getById(id: string) : Promise<BookEntity | {}> {
         try {
             if (!id) {
                 throw new Error("No Id provided");
@@ -45,13 +44,13 @@ export function BookReaderAdapter(): BookReaderDrivenPorts{
             let result = await collection.findOne(query);
 
             if (!result) {
-                return null;
+                return {};
             } else {
                 return result
             }
         } catch (err) {
             console.error("Error fetching book", err);
-            return null;
+            return {};
         }
     
     }
