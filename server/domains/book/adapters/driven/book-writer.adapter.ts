@@ -5,7 +5,6 @@ import database from "../../../../config/database.js";
 import { ObjectId } from "mongodb";
 import { BookEntity } from "../../core/entities/book.entity.js";
 import { BookWriterDrivenPorts } from "../../ports/driven/book-writer-driven.ports.js";
-import { BookResourcePathConstants } from "../../core/constants/book-resource-path.constants.js";
 import { BookDatabase } from "../../core/constants/book-database.constants.js";
 
 export function BookWritterAdapter(): BookWriterDrivenPorts {
@@ -55,12 +54,3 @@ export function BookWritterAdapter(): BookWriterDrivenPorts {
         remove
     }
 }
-
-
-
-
-
-
-
-
-// export default router;

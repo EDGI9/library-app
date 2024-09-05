@@ -6,11 +6,11 @@ import { BookDriverPort } from "../ports/driver/book-driver.ports.js";
 
 export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDrivenPorts): BookDriverPort {
 
-    async function getAll(): Promise<BookDTO[] | null> {
+    async function getAll(): Promise<BookDTO[] | []> {
         const entities = await reader.getAll();
 
         if (!entities) {
-            return null;
+            return [];
         }
 
         return <BookDTO[]>entities.map(entity => ({
@@ -22,14 +22,14 @@ export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDri
         }))
     }
 
-    async function getById(id: string): Promise<BookDTO | null> {
+    async function getById(id: string): Promise<BookDTO | {}> {
         const entity = await reader.getById(id);
 
         if (!entity) {
-            return null;
+            return {};
         }
          
-        return <BookDTO> {
+        return <BookDTO>{
             id: entity.id,
             name:entity.name,
             description: entity.description,
