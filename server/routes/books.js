@@ -38,9 +38,10 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         let newDocument = {
-            name:req.body.name,
-            position: req.body.position,
-            level: req.body.level
+            name:req.body.name || '',
+            description: req.body.description || '',
+            genre: req.body.genre || [],
+            image: req.body.image || ''
         }
         let collection = await db.collection(collectionName);
         let result = await collection.insertOne(newDocument);
@@ -56,9 +57,10 @@ router.patch("/:id", async (req, res) => {
         let query = {_id: new ObjectId(req.params.id) };
         const updates = {
             $set: {
-                name:req.body.name,
-                position: req.body.position,
-                level: req.body.level
+                name:req.body.name || '',
+                description: req.body.description || '',
+                genre: req.body.genre || [],
+                image: req.body.image || ''
             }
         }
 
