@@ -29,7 +29,7 @@ export default function BookList() {
     await fetch(url, {
       method: "DELETE",
     });
-    const newBook = books.filter((el) => el._id !== id);
+    const newBook = books.filter((el) => el.id !== id);
     setBooks(newBook);
   }
 
@@ -38,13 +38,13 @@ export default function BookList() {
     
   }
   function bookList() {
-    return books.map((book) => {
+    return books.map((book, index) => {
       return (
         <Book
           book={book}
-          deleteBook={() => deleteBook(book._id)}
-          goToBook={() => goToBook(book._id)}
-          key={book._id}
+          deleteBook={() => deleteBook(book.id)}
+          goToBook={() => goToBook(book.id)}
+          key={index}
         />
       );
     });
