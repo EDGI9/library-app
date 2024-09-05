@@ -3,4 +3,5 @@ export interface BookEntity {
     name: string;
     description: string;
     genre: string[];
+    image: string;
 };

@@ -8,42 +8,52 @@ import { BookReaderDrivenPorts } from "../../ports/driven/book-reader-driven.por
 import { BookResourcePathConstants } from "../../core/constants/book-resource-path.constants.js";
 import { BookDatabase } from "../../core/constants/book-database.constants.js";
 
-
-const router = express.Router();
-
 export function BookReaderAdapter(): BookReaderDrivenPorts{
     async function getAll(): Promise<BookEntity[]> {
 
-        return router.get(BookResourcePathConstants.ROOT, async (req, res) => {
-            try {
-                let collection = await database.collection(BookDatabase);
-                let results = await collection.find({}).toArray();
-                res.status(200).json(results);
-            } catch (err) {
-                console.error("Error fetching books", err);
-                res.status(500).json({ error: "Internal Server Error" });
-            }
-        });
-        
+        try {
+            let collection = await database.collection(BookDatabase);
+            let results = await collection.find({}).toArray();
+
+            const entries: BookEntity[] = results.map((doc) => {
+                return {
+                  ...doc,
+                  id: doc._id.toString(),
+                  name: doc.name.toString(),
+                  description: doc.description.toString(),
+                  genre:doc.genre,
+                  image: doc.image.toString(),
+                }
+            })
+            
+            return entries
+        } catch (err) {
+            console.error("Error fetching books", err);
+            return [];
+        }
     }
 
-    async function getById(id: string) : Promise<BookEntity> {
-       return router.get(BookResourcePathConstants.PARAM_ID, async (req, res) => {
-            try {
-                let collection = await database.collection(BookDatabase);
-                let query = { _id: new ObjectId(id) };
-                let result = await collection.findOne(query);
-        
-                if (!result) {
-                    return res.status(404).send("Not Found");
-                } else {
-                    return res.status(200).json(result);
-                }
-            } catch (err) {
-                console.error(err);
-                return res.status(500).send("Server Error");
+    async function getById(id: string) : Promise<BookEntity | null> {
+        try {
+            if (!id) {
+                throw new Error("No Id provided");
             }
-        }); 
+
+            let collection = await database.collection(BookDatabase);
+            let query = { _id: new ObjectId(id) };
+            
+            let result = await collection.findOne(query);
+
+            if (!result) {
+                return null;
+            } else {
+                return result
+            }
+        } catch (err) {
+            console.error("Error fetching book", err);
+            return null;
+        }
+    
     }
 
     return {

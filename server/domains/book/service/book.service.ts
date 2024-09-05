@@ -17,7 +17,8 @@ export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDri
             id :entity.id,
             name: entity.name,
             description: entity.description,
-            genre: entity.genre
+            genre: entity.genre,
+            image: entity.image
         }))
     }
 
@@ -32,7 +33,8 @@ export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDri
             id: entity.id,
             name:entity.name,
             description: entity.description,
-            genre: entity.genre
+            genre: entity.genre,
+            image: entity.image
         }
         
     }
