@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import booksAPI from "../apis/books";
 import Book from "./Book";
 
 
 export default function BookList() {
   const [books, setBooks] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getBooks() {
@@ -32,12 +33,17 @@ export default function BookList() {
     setBooks(newBook);
   }
 
+  function goToBook(id) {
+    navigate(`/view/${id}`);
+    
+  }
   function bookList() {
     return books.map((book) => {
       return (
         <Book
           book={book}
           deleteBook={() => deleteBook(book._id)}
+          goToBook={() => goToBook(book._id)}
           key={book._id}
         />
       );
@@ -48,15 +54,7 @@ export default function BookList() {
     <>
       <section className="flex justify-center">
           <div className="w-[80%] flex flex-wrap justify-center md:justify-start">
-            {books.map(item => {
-              return (
-                <Book
-                  book={item}
-                  deleteBook={() => deleteBook(item._id)}
-                  key={item._id}
-                />
-            )
-            })}
+            {bookList()}
           </div>
       </section>
     </>
