@@ -53,7 +53,7 @@ export default function BookList() {
   return (
     <>
       <section className="flex justify-center">
-          <div className="w-[80%] flex flex-wrap justify-center md:justify-start">
+          <div className="flex flex-wrap justify-center md:justify-start gap-4">
             {bookList()}
           </div>
       </section>
