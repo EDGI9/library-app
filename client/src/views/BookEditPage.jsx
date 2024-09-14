@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import booksAPI from "../apis/books";
+import { useDispatch, useSelector } from 'react-redux';
 
 import TextInput from "../components/TextInput.jsx";
 import Pill from "../components/Pill.jsx";
-import BookService from "../domains/books/index";
+
+import { GET_BOOK, CREATE_BOOK, UPDATE_BOOK } from "../store/slices/book";
+
 
 
 export default function BookEditPage() {
@@ -19,24 +21,17 @@ export default function BookEditPage() {
 
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
 
   useEffect(() => {
     async function fetchData() {
       const id = params.id?.toString() || undefined;
-      // const url = booksAPI.GET_BOOK.replace("{id}",id);
       if(!id) return;
+
       setIsNew(false);
-      // const response = await fetch(url);
-      const book = await BookService.getById(id);
+      const book = await dispatch(GET_BOOK(id))
 
-
-      // if (!response.ok) {
-      //   const message = `An error has occurred: ${response.statusText}`;
-      //   console.error(message);
-      //   return;
-      // }
-      // const book = await response.json();
       if (!book) {
         console.warn(`Book with id ${id} not found`);
         navigate("/");
@@ -71,34 +66,12 @@ export default function BookEditPage() {
   const onSubmit = async (e) => {
     e.preventDefault();
     const book = { ...form };
-    // let url;
     try {
-      let response;
       if (isNew) {
-        // url = booksAPI.CREATE_BOOK;
-        // response = await fetch(url, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(book),
-        // });
-        await BookService.create(book)
+        await dispatch(CREATE_BOOK(book));
       } else {
-        // url = booksAPI.UPDATE_BOOK.replace("{id}", params.id);
-        // response = await fetch(url, {
-        //   method: "PATCH",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(book),
-        // });
-        await BookService.update(params.id, book)
+        await dispatch(UPDATE_BOOK(params.id, book));
       }
-
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! status: ${response.status}`);
-      // }
     } catch (error) {
       console.error('A problem occurred adding or updating a book: ', error);
     } finally {
@@ -137,7 +110,7 @@ export default function BookEditPage() {
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                     <TextInput 
                       name="name"
-                      value={form.name}
+                      value={form?.name}
                       placeholder="Name" 
                       onChange={(text) => updateForm({ name: text})}/>
                   </div>
@@ -155,7 +128,7 @@ export default function BookEditPage() {
                     <textarea 
                       placeholder="Book description"
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
-                      value={form.description}
+                      value={form?.description}
                       onChange={(e) => updateForm({ description: e.target.value })}></textarea>
                   </div>
                 </div>
@@ -171,7 +144,7 @@ export default function BookEditPage() {
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                     <TextInput 
                       name="image"
-                      value={form.image}
+                      value={form?.image}
                       placeholder="Image URL" 
                       onChange={(text) => updateForm({ image: text})}/>
                   </div>
@@ -198,7 +171,7 @@ export default function BookEditPage() {
                     </div>
                 </div>
                 <div className="flex gap-2">
-                  {form.genre?.map((item, index) => (
+                  {form?.genre?.map((item, index) => (
                       <Pill
                         key={index}
                         text={item}

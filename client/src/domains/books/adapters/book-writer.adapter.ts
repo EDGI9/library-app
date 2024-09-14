@@ -1,6 +1,6 @@
 import { BookEntity } from "../core/entities/book.entity";
 import { BookDriverWriterPort } from "../ports/driven/book-driven-writer.port";
-import booksApi from "../../../apis/books";
+import booksApi from "../core/constants/book-apis.constants";
 
 export function BookWriterAdapter(): BookDriverWriterPort {
     const myHeaders = new Headers();

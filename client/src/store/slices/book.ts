@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { BookDTO } from '../../domains/books/core/dtos/book.dto';
 import BookService from '../../domains/books/index';
+import StorePaths from "../../domains/books/core/constants/book-store-paths.constants";
 
 const initialState = {
    data:<BookDTO | {}>{}
@@ -12,16 +13,21 @@ const reducers = {
     },
  }
 
-export const GET_BOOK = createAsyncThunk('books/GET_BOOK', async (id:string): Promise<BookDTO | {}> => {
+ 
+export const GET_BOOK = createAsyncThunk(StorePaths.GET_BOOK, async (id:string): Promise<BookDTO | {}> => {
   return await BookService.getById(id);
+});
+  
+export const CREATE_BOOK = createAsyncThunk(StorePaths.CREATE_BOOK, async (dto: BookDTO): Promise<void> => {
+  return await BookService.create(dto);
 });
 
 //@ts-ignore
-export const UPDATE_BOOK = createAsyncThunk('books/UPDATE_BOOK', async ({id, dto}): Promise<void> => {
+export const UPDATE_BOOK = createAsyncThunk(StorePaths.UPDATE_BOOK, async ({id, dto}): Promise<void> => {
   await BookService.update(id, dto);
 });
 
-export const DELETE_BOOK = createAsyncThunk('books/DELETE_BOOK', async (id:string): Promise<void> => {
+export const DELETE_BOOK = createAsyncThunk(StorePaths.DELETE_BOOK, async (id:string): Promise<void> => {
   await BookService.remove(id);
 });
 
@@ -38,6 +44,18 @@ const book = createSlice({
         state.data = action.payload;  
       })
       .addCase(GET_BOOK.rejected, (state) => {
+        console.log('Error getting Book');
+        console.log(state);
+      });
+
+    builder
+      .addCase(CREATE_BOOK.pending, () => {
+        console.log('calling');
+      })
+      .addCase(CREATE_BOOK.fulfilled, (state, action) => {
+        console.log('Book created');  
+      })
+      .addCase(CREATE_BOOK.rejected, (state) => {
         console.log('Error getting Book');
         console.log(state);
       });

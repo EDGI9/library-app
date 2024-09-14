@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import booksAPI from "../../apis/books.js";
 import  BookService from '../../domains/books/index.js';
 import { BookDTO } from '../../domains/books/core/dtos/book.dto.js';
+import StorePaths from "../../domains/books/core/constants/book-store-paths.constants";
+
 
 
 const initialState = {
@@ -14,7 +15,7 @@ const reducers = {
     },
 }
 
-export const GET_ALL_BOOKS = createAsyncThunk('books/GET_ALL_BOOKS', async () => {
+export const GET_ALL_BOOKS = createAsyncThunk(StorePaths.GET_ALL_BOOKS, async () => {
     return await BookService.getAll();
 });
 

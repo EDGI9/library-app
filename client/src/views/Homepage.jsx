@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import BookList from "../components/BookList.jsx";
@@ -9,10 +8,8 @@ import Book from "../components/Book.jsx";
 import { GET_ALL_BOOKS, } from "../store/slices/books";
 import { DELETE_BOOK } from '../store/slices/book';
 
-
 const Homepage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     let [recomendedBook, setRecomendedBook]= useState({})
     const books = useSelector((state) => state.books.items);
 

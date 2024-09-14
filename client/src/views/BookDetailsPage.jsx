@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GET_BOOK } from "../store/slices/book";
 
 import Pill from "../components/Pill.jsx";
-// import BookService from "../domains/books/index.js";
-
 
 export default function BookDetailsPage () {
     const params = useParams();

@@ -1,7 +1,7 @@
 
 import { BookDriverReaderPort } from "../ports/driven/book-drive-reader.port";
 import { BookEntity } from "../core/entities/book.entity";
-import  booksAPI  from "../../../apis/books";
+import  booksAPI  from "../core/constants/book-apis.constants";
 
 export function BookReaderAdapter(): BookDriverReaderPort {
     const myHeaders = new Headers();
