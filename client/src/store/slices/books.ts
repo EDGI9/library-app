@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import booksAPI from "../../apis/books.js";
+import  BookService from '../../domains/books/index.js';
+import { BookDTO } from '../../domains/books/core/dtos/book.dto.js';
 
 
 const initialState = {
-   items:[]
+   items: <BookDTO[]>[]
 }
 
 const reducers = {
@@ -13,16 +15,7 @@ const reducers = {
 }
 
 export const GET_ALL_BOOKS = createAsyncThunk('books/GET_ALL_BOOKS', async () => {
-    const response = await fetch(booksAPI.GET_ALL_BOOKS);
-    console.log('herer');
-    
-
-    if (!response.ok) {
-      const message = `An error occurred: ${response.statusText}`;
-      return message
-    }
-
-    return await response.json();
+    return await BookService.getAll();
 });
 
 const books = createSlice({
@@ -35,7 +28,6 @@ const books = createSlice({
         console.log('calling');
       })
       .addCase(GET_ALL_BOOKS.fulfilled, (state, action) => {
-        console.log(action, 'data');
         state.items = action.payload;  
       })
       .addCase(GET_ALL_BOOKS.rejected, (state, action) => {

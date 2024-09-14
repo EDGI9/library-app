@@ -4,6 +4,7 @@ import booksAPI from "../apis/books";
 
 import TextInput from "../components/TextInput.jsx";
 import Pill from "../components/Pill.jsx";
+import BookService from "../domains/books/index";
 
 
 export default function BookEditPage() {
@@ -18,20 +19,24 @@ export default function BookEditPage() {
 
   const params = useParams();
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     async function fetchData() {
       const id = params.id?.toString() || undefined;
-      const url = booksAPI.GET_BOOK.replace("{id}",id);
+      // const url = booksAPI.GET_BOOK.replace("{id}",id);
       if(!id) return;
       setIsNew(false);
-      const response = await fetch(url);
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.statusText}`;
-        console.error(message);
-        return;
-      }
-      const book = await response.json();
+      // const response = await fetch(url);
+      const book = await BookService.getById(id);
+
+
+      // if (!response.ok) {
+      //   const message = `An error has occurred: ${response.statusText}`;
+      //   console.error(message);
+      //   return;
+      // }
+      // const book = await response.json();
       if (!book) {
         console.warn(`Book with id ${id} not found`);
         navigate("/");
@@ -66,32 +71,34 @@ export default function BookEditPage() {
   const onSubmit = async (e) => {
     e.preventDefault();
     const book = { ...form };
-    let url;
+    // let url;
     try {
       let response;
       if (isNew) {
-        url = booksAPI.CREATE_BOOK;
-        response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(book),
-        });
+        // url = booksAPI.CREATE_BOOK;
+        // response = await fetch(url, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(book),
+        // });
+        await BookService.create(book)
       } else {
-        url = booksAPI.UPDATE_BOOK.replace("{id}", params.id);
-        response = await fetch(url, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(book),
-        });
+        // url = booksAPI.UPDATE_BOOK.replace("{id}", params.id);
+        // response = await fetch(url, {
+        //   method: "PATCH",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(book),
+        // });
+        await BookService.update(params.id, book)
       }
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! status: ${response.status}`);
+      // }
     } catch (error) {
       console.error('A problem occurred adding or updating a book: ', error);
     } finally {

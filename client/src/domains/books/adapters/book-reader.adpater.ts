@@ -4,6 +4,8 @@ import { BookEntity } from "../core/entities/book.entity";
 import  booksAPI  from "../../../apis/books";
 
 export function BookReaderAdapter(): BookDriverReaderPort {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
     async function getAll(): Promise<BookEntity[] | null> {
         const response = await fetch(booksAPI.GET_ALL_BOOKS);
@@ -20,8 +22,8 @@ export function BookReaderAdapter(): BookDriverReaderPort {
            return null 
         }
 
-        const response = await fetch(booksAPI.GET_BOOK, { body: JSON.stringify({ id: id }),})
-
+        const response = await fetch(booksAPI.GET_BOOK.replace('{id}',id))
+        
         if(!response) {
             return null
         }

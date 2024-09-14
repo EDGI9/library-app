@@ -3,6 +3,8 @@ import { BookDriverWriterPort } from "../ports/driven/book-driven-writer.port";
 import booksApi from "../../../apis/books";
 
 export function BookWriterAdapter(): BookDriverWriterPort {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
     async function create(dto: BookEntity): Promise<void> {
         if (!dto) {
@@ -11,6 +13,7 @@ export function BookWriterAdapter(): BookDriverWriterPort {
 
         await fetch(booksApi.CREATE_BOOK, {
             method: "POST",
+            headers: myHeaders,
             body: JSON.stringify(dto),
         })
     }
@@ -20,8 +23,9 @@ export function BookWriterAdapter(): BookDriverWriterPort {
             return
         }
 
-        await fetch(booksApi.UPDATE_BOOK, {
-            method: "PATCH",
+        await fetch(booksApi.UPDATE_BOOK.replace('{id}',id), {
+            method: "PUT",
+            headers: myHeaders,
             body: JSON.stringify(dto),
         })
     }
@@ -31,9 +35,9 @@ export function BookWriterAdapter(): BookDriverWriterPort {
             return
         }
 
-        await fetch(booksApi.DELETE_BOOK, {
+        await fetch(booksApi.DELETE_BOOK.replace('{id}',id), {
             method: "DELETE",
-            body: JSON.stringify({id: id}),
+            headers: myHeaders
         })
     }
 

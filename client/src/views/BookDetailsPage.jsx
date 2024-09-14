@@ -1,44 +1,30 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import booksAPI from "../apis/books";
+import { useDispatch, useSelector } from 'react-redux';
+import { GET_BOOK } from "../store/slices/book";
 
 import Pill from "../components/Pill.jsx";
+// import BookService from "../domains/books/index.js";
 
 
 export default function BookDetailsPage () {
     const params = useParams();
     const navigate = useNavigate();
-
-    const [bookDetails, setBookDetails] = useState({
-        name: "",
-        description: "",
-        genre: [],
-        image:""
-      });
+    const dispatch = useDispatch();
+    const bookDetails = useSelector((state) => state.book.data);
 
     useEffect(() => {
         async function fetchData() {
             const id = params.id?.toString() || undefined;
-            const url = booksAPI.GET_BOOK.replace("{id}",id);
-
-            if(!id) return;
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                const message = `An error has occurred: ${response.statusText}`;
-                console.error(message);
-                return;
-            }
-            const book = await response.json();
+            const book = await dispatch(GET_BOOK(id))
+            
             if (!book) {
                 console.warn(`Book with id ${id} not found`);
                 navigate("/");
                 return;
             }
-            setBookDetails(book);
         }
         fetchData();
-        return;
     }, [params.id, navigate]);
 
 
