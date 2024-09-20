@@ -8,6 +8,9 @@ import Book from "../components/Book.jsx";
 import AuthorCard from "../components/AuthorCard.jsx";
 
 import homepageImage from '../assets/library-homepage-image.webp';
+import book from '../assets/open-book.webp';
+import user from '../assets/user.webp';
+import review from '../assets/review.webp';
 import "../utils/tailwind-animation.js";
 
 import { GET_ALL_BOOKS, } from "../store/slices/books";
@@ -39,7 +42,7 @@ const Homepage = () => {
                             <span className='transform transition-all opacity-0 translate-y-12 ease-out duration-700 delay-200' data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'>The</span>
                             <b className='text-primary transform transition-all opacity-0 -translate-y-12 ease-out duration-700 delay-500' data-replace='{ "-translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'>Bookshelf Bliss</b>
                         </h1>
-                        <h6 className='transform transition-all opacity-0 -translate-x-12 ease-out duration-700 delay-1000 text-sm' data-replace='{ "-translate-x-12": "translate-x-0", "opacity-0": "opacity-100" }'>Browse for books at anytime</h6>
+                        <h6 className='transform transition-all opacity-0 -translate-x-12 ease-out duration-700 delay-1000 text-sm text-slate-400' data-replace='{ "-translate-x-12": "translate-x-0", "opacity-0": "opacity-100" }'>Browse for books at anytime</h6>
                     </div>
                     <div className='hidden md:flex flex-col '>
                         <img src={homepageImage} height={500} width={700} alt="" />
@@ -69,9 +72,9 @@ const Homepage = () => {
             </section>
             <section className='row-start-3 col-span-12  mb-48'>
                     <div className="flex flex-col md:flex-row items-center justify-center row-start-3 gap-4">
-                        <Counter icon="Books" number={books.length} text="Total Books"></Counter>
-                        <Counter icon="asdasd" number="2" text="Authors"></Counter>
-                        <Counter icon="asdasd" number={`${faker.number.float({ multipleOf: 0.25, min: 0, max:10 })}k`} text="Reviews"></Counter>
+                        <Counter icon={book} number={books.length} text="Total Books"></Counter>
+                        <Counter icon={user} number="2" text="Authors"></Counter>
+                        <Counter icon={review} number={`${faker.number.float({ multipleOf: 0.25, min: 0, max:10 })}k`} text="Reviews"></Counter>
                     </div>
             </section>
             <section className="md:grid grid-rows-1 grid-cols-12 row-start-4 col-span-12 min-h-[400px]">
