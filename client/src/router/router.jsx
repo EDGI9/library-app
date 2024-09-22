@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom"
 import App from "../App.jsx"
-import Book from "../components/Book.jsx"
-import BookList from "../components/BookList.jsx"
 import BookEditPage from "../views/BookEditPage.jsx";
 import BookDetailsPage from "../views/BookDetailsPage.jsx";
+import Homepage from "../views/Homepage.jsx";
+
 
 
 const router = createBrowserRouter([
@@ -12,7 +12,7 @@ const router = createBrowserRouter([
       element: <App />,
       children: [{
         path: "/",
-        element: <BookList />,
+        element: <Homepage />,
       }]
     },
     {

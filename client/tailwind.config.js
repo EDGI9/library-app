@@ -5,7 +5,15 @@ export default {
       "./src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-      extend: {},
+      extend: {
+        colors: {
+          'primary': '#4388e5',
+          'accent': "#caeeff"
+        },
+        backgroundImage: {
+          'main-background': "url('/src/assets/background.webp')",
+        }
+      },
     },
     plugins: [],
   }
