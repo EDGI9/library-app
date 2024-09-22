@@ -46,7 +46,7 @@ export default function BookDetailsPage () {
                         <div className="flex gap-2">{genreItems()}</div>
                     </div>
                     <div className="flex justify-between flex-col flex-col-reverse md:flex-row gap-12">
-                        <p className="max-w-lg">{bookDetails.description}</p>
+                        <p className="max-w-lg text-slate-400">{bookDetails.description}</p>
                         <img src={bookDetails.image} alt="" height={500} width={300}/>
                     </div>
                 </div>

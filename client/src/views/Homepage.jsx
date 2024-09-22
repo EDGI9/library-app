@@ -50,7 +50,7 @@ const Homepage = () => {
                     </div>
                 </div>
             </section>
-            <section className="grid grid-rows-1 grid-cols-12 row-start-2 col-start-1 col-span-12 mb-48 bg-white/10 backdrop-blur-md px-5 py-10">
+            <section className="grid grid-rows-1 grid-cols-12 row-start-2 col-start-1 col-span-12 mb-48 bg-white/50 backdrop-blur-md px-5 py-10">
                 <div className='md:grid grid-cols-subgrid grid-rows-1 grid-cols-12 col-start-2 col-span-10 gap-4'>
                     <section className="md:grid auto-rows-max row-start-1 col-start-1 col-span-7">
                         <h1 className='flex justify-center md:justify-start row-start-1 text-4xl mb-7 gap-3'>
@@ -71,13 +71,13 @@ const Homepage = () => {
                 </div>
             </section>
             <section className='row-start-3 col-span-12  mb-48'>
-                    <div className="flex flex-col md:flex-row items-center justify-center row-start-3 gap-4">
-                        <Counter icon={book} number={books.length} text="Total Books"></Counter>
-                        <Counter icon={user} number="2" text="Authors"></Counter>
-                        <Counter icon={review} number={`${faker.number.float({ multipleOf: 0.25, min: 0, max:10 })}k`} text="Reviews"></Counter>
-                    </div>
+                <div className="flex flex-col md:flex-row items-center justify-center row-start-3 gap-4">
+                    <Counter icon={book} number={books.length} text="Total Books"></Counter>
+                    <Counter icon={user} number="2" text="Authors"></Counter>
+                    <Counter icon={review} number={`${faker.number.float({ multipleOf: 0.25, min: 0, max:10 })}k`} text="Reviews"></Counter>
+                </div>
             </section>
-            <section className="md:grid grid-rows-1 grid-cols-12 row-start-4 col-span-12 min-h-[400px] bg-white/10 backdrop-blur-md">
+            <section className="md:grid grid-rows-1 grid-cols-12 row-start-4 col-span-12 min-h-[400px] bg-white/50 backdrop-blur-md">
                 <div className='col-start-2 col-span-10'>
                     <h1 className='flex text-4xl mb-7 gap-3'>
                         <span>Author</span> 
