@@ -10,6 +10,9 @@ export default {
           'primary': '#4388e5',
           'accent': "#caeeff"
         },
+        backgroundImage: {
+          'main-background': "url('/src/assets/background.webp')",
+        }
       },
     },
     plugins: [],

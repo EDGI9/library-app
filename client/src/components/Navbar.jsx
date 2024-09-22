@@ -5,7 +5,7 @@ import logoImage from '../assets/logo.webp';
 const Navbar = () => {
     return (
         <div>
-            <nav className="flex justify-between istems-center mb-6">
+            <nav className="flex justify-between istems-center mb-6 p-6">
                 <NavLink to="/">
                     <img alt="MongoDB logo" className="h-10 inline" src={logoImage}></img>
                 </NavLink>

@@ -77,7 +77,7 @@ const Homepage = () => {
                         <Counter icon={review} number={`${faker.number.float({ multipleOf: 0.25, min: 0, max:10 })}k`} text="Reviews"></Counter>
                     </div>
             </section>
-            <section className="md:grid grid-rows-1 grid-cols-12 row-start-4 col-span-12 min-h-[400px]">
+            <section className="md:grid grid-rows-1 grid-cols-12 row-start-4 col-span-12 min-h-[400px] bg-white/10 backdrop-blur-md">
                 <div className='col-start-2 col-span-10'>
                     <h1 className='flex text-4xl mb-7 gap-3'>
                         <span>Author</span> 
