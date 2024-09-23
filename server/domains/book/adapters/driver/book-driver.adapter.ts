@@ -1,6 +1,7 @@
 import { Express, Router, Request, Response } from "express";
 import { BookResourcePathConstants } from "../../core/constants/book-resource-path.constants.js";
 import Books from "../../index.js";
+import { BookFiltersDTO } from "../../core/dtos/book-filters.dto.js";
 
 export function BookController(app: Express, router: Router) : void {
     
@@ -65,6 +66,35 @@ export function BookController(app: Express, router: Router) : void {
             res.status(500).send("Couldn't delete Book");
         }
     })
+
+
+    app.get(BookResourcePathConstants.BASE, async (req: Request, res: Response): Promise<void> => {
+        try {
+            const filters: BookFiltersDTO = {};
+            if (req.query.name) {
+                filters.name = req.query.name.toString();
+            }
+            if (req.query.genre) {
+                filters.genre = req.query.genre.toString()
+            }
+            if (req.query.author) {
+                filters.author = req.query.author.toString();
+            }
+
+            const response = await Books.getByFilters(filters);
+
+            if(!response) {
+                res.status(404);
+            }
+
+            res.json(response);
+
+        } catch (err) {
+            console.error(err);
+            res.status(500).send("Couldn't get Book");
+        }
+    })
+
 
     app.use(BookResourcePathConstants.BASE, router)
 }
