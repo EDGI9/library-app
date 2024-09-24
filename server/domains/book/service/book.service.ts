@@ -8,23 +8,25 @@ import { BookDriverPort } from "../ports/driver/book-driver.ports.js";
 export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDrivenPorts): BookDriverPort {
 
     async function getAll(): Promise<BookDTO[] | []> {
-        const entities = await reader.getAll();
+        const entities: BookEntity[] = await reader.getAll();
 
         if (!entities) {
             return [];
         }
 
         return <BookDTO[]>entities.map(entity => ({
-            id :entity.id,
+            id: entity.id,
             name: entity.name,
             description: entity.description,
             genre: entity.genre,
-            image: entity.image
+            image: entity.image,
+            author: entity.author
         }))
     }
 
     async function getById(id: string): Promise<BookDTO | {}> {
         const entity: BookEntity = await reader.getById(id);
+        console.log('entity', entity)
 
         if (!entity) {
             return {};
@@ -35,13 +37,14 @@ export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDri
             name:entity.name,
             description: entity.description,
             genre: entity.genre,
-            image: entity.image
+            image: entity.image,
+            author: entity.author
         }
         
     }
 
     async function getByFilters(filters: BookFiltersDTO): Promise<BookDTO[] | []> {
-        const entities = await reader.getByFilters(filters);
+        const entities: BookEntity[] = await reader.getByFilters(filters);
 
         if (!entities) {
             return [];
@@ -52,7 +55,8 @@ export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDri
             name: entity.name,
             description: entity.description,
             genre: entity.genre,
-            image: entity.image
+            image: entity.image,
+            author: entity.author
         }))
         
     }

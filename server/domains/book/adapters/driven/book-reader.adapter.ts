@@ -36,11 +36,11 @@ export function BookReaderAdapter(): BookReaderDrivenPorts{
             let query = { _id: new ObjectId(id) };
             
             let result = await collection.findOne(query);
-
+            const processedResult = bookHandler(result);
             if (!result) {
                 return {};
             } else {
-                return result
+                return processedResult;
             }
         } catch (err) {
             console.error("Error fetching book", err);
