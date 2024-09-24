@@ -25,7 +25,6 @@ describe("Test Book service", () => {
 
         const spy = vi.spyOn(BookService, "getAll");
         const result = await BookService.getAll();
-        console.log(result);
 
         expect(spy).toHaveBeenCalledOnce();
 

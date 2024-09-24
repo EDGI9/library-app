@@ -26,7 +26,6 @@ export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDri
 
     async function getById(id: string): Promise<BookDTO | {}> {
         const entity: BookEntity = await reader.getById(id);
-        console.log('entity', entity)
 
         if (!entity) {
             return {};
