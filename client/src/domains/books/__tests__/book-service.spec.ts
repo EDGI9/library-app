@@ -3,19 +3,10 @@ import { faker } from "@faker-js/faker";
 import BookService from "../index";
 import { BookDTO } from "../core/dtos/book.dto";
 
+import Book from "../../../__mocks__/components/Book";
+
 
 describe("Test Book service", () => {
-
-    const bookGenerator = () => {
-        return <BookDTO>{
-            name: faker.word.words(5),
-            description: faker.lorem.sentence(),
-            image: faker.image.url(),
-            genre: [faker.word.words(1), faker.word.words(1), faker.word.words(1)],
-            author: faker.word.words(2),
-        } 
-    };
-
 
     it("Gets all Books", {
         timeout: 30000,
@@ -77,7 +68,7 @@ describe("Test Book service", () => {
         timeout: 30000,
         retry: 3
     }, async ()=> {
-        const book = bookGenerator();
+        const book = Book;
         expect(BookService.create).toBeDefined();
         expect(BookService.create).toBeInstanceOf(Function);
 
@@ -93,7 +84,7 @@ describe("Test Book service", () => {
         retry: 3
     }, async () => {
         const id= faker.string.alpha(10);
-        const book = bookGenerator();
+        const book = Book;
         expect(BookService.update).toBeDefined();
         expect(BookService.update).toBeInstanceOf(Function);
 
