@@ -24,8 +24,8 @@ export default function BookList(props) {
 
   return (
     <>
-      <section className="flex justify-center">
-          <div className="flex flex-wrap justify-center md:justify-start gap-4">
+      <section data-testid="qa-book-list" className="flex justify-center">
+          <div data-testid="qa-book-list_item-list" className="flex flex-wrap justify-center md:justify-start gap-4">
             {bookList()}
           </div>
       </section>
