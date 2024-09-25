@@ -1,0 +1,28 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Server - Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20.x
+
+      - name: Install NPM packages
+        working-directory: ./server
+        run: npm ci
+
+      - name: Run test script
+        working-directory: ./server
+        run: npm run test
