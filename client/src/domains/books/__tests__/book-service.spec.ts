@@ -3,16 +3,10 @@ import { faker } from "@faker-js/faker";
 import BookService from "../index";
 import { BookDTO } from "../core/dtos/book.dto";
 
+import Book from "../../../__mocks__/components/Book";
+
 
 describe("Test Book service", () => {
-
-    const fakeNewBook: BookDTO = {
-        name: faker.word.words(5),
-        description: faker.lorem.sentence(),
-        image: faker.image.url(),
-        genre: ['cat', 'dog', 'mouse']
-    };
-
 
     it("Gets all Books", {
         timeout: 30000,
@@ -22,7 +16,7 @@ describe("Test Book service", () => {
         expect(BookService.getAll).toBeInstanceOf(Function);
 
         const spy = vi.spyOn(BookService, "getAll");
-        const result = await BookService.getAll();
+        const result = await BookService.getAll();       
 
         expect(spy).toHaveBeenCalledOnce();
 
@@ -33,7 +27,8 @@ describe("Test Book service", () => {
                     name: expect.any(String),
                     description: expect.any(String),
                     image: expect.any(String),
-                    genre: expect.arrayContaining([expect.any(String)])
+                    genre: expect.arrayContaining([expect.any(String)]),
+                    author: expect.any(String),
                 })
             ])
         );
@@ -62,7 +57,8 @@ describe("Test Book service", () => {
                 name: expect.any(String),
                 description: expect.any(String),
                 image: expect.any(String),
-                genre: expect.arrayContaining([expect.any(String)])
+                genre: expect.arrayContaining([expect.any(String)]),
+                author: expect.any(String),
             })
         )
 
@@ -72,14 +68,15 @@ describe("Test Book service", () => {
         timeout: 30000,
         retry: 3
     }, async ()=> {
+        const book = Book;
         expect(BookService.create).toBeDefined();
         expect(BookService.create).toBeInstanceOf(Function);
 
         const spy = vi.spyOn(BookService, "create");
-        await BookService.create(fakeNewBook);
+        await BookService.create(book);
 
         expect(spy).toHaveBeenCalledOnce();
-        expect(spy).toHaveBeenCalledWith(fakeNewBook);
+        expect(spy).toHaveBeenCalledWith(book);
     });
 
     it("Updates a Book",{
@@ -87,14 +84,15 @@ describe("Test Book service", () => {
         retry: 3
     }, async () => {
         const id= faker.string.alpha(10);
+        const book = Book;
         expect(BookService.update).toBeDefined();
         expect(BookService.update).toBeInstanceOf(Function);
 
         const spy = vi.spyOn(BookService, "update");
-        await BookService.update(id, fakeNewBook);
+        await BookService.update(id, book);
 
         expect(spy).toHaveBeenCalledOnce();
-        expect(spy).toHaveBeenCalledWith(id, fakeNewBook);
+        expect(spy).toHaveBeenCalledWith(id, book);
     });
 
     it("Deletes a Book",{

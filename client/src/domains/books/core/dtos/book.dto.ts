@@ -4,4 +4,5 @@ export interface BookDTO {
     description: string;
     image: string;
     genre: string[];
+    author: string;
 }

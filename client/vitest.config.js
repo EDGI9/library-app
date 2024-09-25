@@ -9,10 +9,13 @@ export default defineConfig({
       exclude: [
         ...configDefaults.exclude,
         './src/router/**',
+        './src/views/**',
         './src/App.jsx',
+        './src/main.jsx',
         './vite.config.js',
         './vitest.config.js',
         './tailwind.config.js',
+        './postcss.config.js',
       ],
     },
   },

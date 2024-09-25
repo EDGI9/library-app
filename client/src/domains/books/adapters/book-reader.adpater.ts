@@ -8,7 +8,10 @@ export function BookReaderAdapter(): BookDriverReaderPort {
     myHeaders.append("Content-Type", "application/json");
 
     async function getAll(): Promise<BookEntity[] | null> {
-        const response = await fetch(booksAPI.GET_ALL_BOOKS);
+        const response = await fetch(booksAPI.GET_ALL_BOOKS,  {
+            method: "GET",
+            headers: myHeaders
+        });
 
         if (!response) {
             return null
@@ -19,11 +22,14 @@ export function BookReaderAdapter(): BookDriverReaderPort {
 
     async function getById(id: string): Promise<BookEntity | null> {
         if (!id) {
-           return null 
+           return null
         }
 
-        const response = await fetch(booksAPI.GET_BOOK.replace('{id}',id))
-        
+        const response = await fetch(booksAPI.GET_BOOK.replace('{id}',id), {
+            method: "GET",
+            headers: myHeaders
+        })
+
         if(!response) {
             return null
         }
@@ -36,5 +42,5 @@ export function BookReaderAdapter(): BookDriverReaderPort {
         getAll,
         getById,
     }
-    
+
 }

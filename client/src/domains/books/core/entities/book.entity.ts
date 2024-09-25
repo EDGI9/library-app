@@ -1,7 +1,8 @@
 export interface BookEntity {
-    _id?: string;
+    id?: string;
     name: string;
     description: string;
     image: string;
     genre: string[];
+    author: string;
 }
