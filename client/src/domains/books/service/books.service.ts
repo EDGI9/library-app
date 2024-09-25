@@ -13,11 +13,12 @@ export default function BookService(reader: BookDriverReaderPort, writer:BookDri
         }
 
         return <BookDTO[]>entities.map(entity => ({
-            id: entity._id,
+            id: entity.id,
             name: entity.name,
             description: entity.description,
             genre: entity.genre,
-            image: entity.image
+            image: entity.image,
+            author: entity.author,
         }))
     }
 
@@ -28,12 +29,13 @@ export default function BookService(reader: BookDriverReaderPort, writer:BookDri
             return {}
         }
 
-        return {
-            id: entity._id,
+        return <BookDTO>{
+            id: entity.id,
             name: entity.name,
             description: entity.description,
             image: entity.image,
-            genre: entity.genre
+            genre: entity.genre,
+            author: entity.author,
         }
     }
 
