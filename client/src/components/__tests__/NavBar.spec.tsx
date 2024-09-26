@@ -10,9 +10,6 @@ describe('Navbar component', () => {
     let navbar: HTMLElement;
    
     beforeEach(()=> {
-        const mockContextValue = {
-            future: 'Mocked Future Value',
-        };
         component = render(
             <MemoryRouter>
                 <Navbar />
