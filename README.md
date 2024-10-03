@@ -23,6 +23,8 @@ There is an administrator side to the application that allows for adding/removin
 - CSS (Tailwind)
 - CI/CD (GitHub Actions)
 - Containerization (Docker, Docker Compose, Dev container)
+- Architecture (Hexagonal Architecture)
+- Development Style (Test Driven Development)
 
 <table>
     <tr>
