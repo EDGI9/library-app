@@ -30,9 +30,8 @@ const BookGalleryPage = () => {
     }
 
     return (
-        <div className="grid grid-cols-3 grid-rows-1">
-            <section className="max-w-96 bg-primary">
-                <h2>Filters (WIP)</h2>
+        <div className="grid grid-cols-3 grid-rows-1 px-5">
+            <section className="max-w-96">
                 {<Filters fields={filters} onChange={updateFilters}/>}
             </section>
             <section className='col-span-2'>

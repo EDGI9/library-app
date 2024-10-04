@@ -12,7 +12,7 @@ const Filters =(props)=> {
        const fields = Object.entries(props.fields);
        return fields.map((item, index) => {
             return (
-                <label key={index}>
+                <label key={index} className="flex flex-col gap-2">
                     <h3>{item[0]}</h3>
                     <TextInput 
                         name={item[0]}
@@ -26,8 +26,11 @@ const Filters =(props)=> {
 
 
     return (
-        <div data-testid="qa-filters">
-            {buildFields()}
+        <div data-testid="qa-filters" className="bg-slate-50 rounded-md px-3 py-4 flex flex-col gap-2">
+            <h2 className='text-md font-bold'>Filters</h2>
+            <div className="flex flex-col gap-4">
+                {buildFields()}
+            </div>
         </div>
     )
 }

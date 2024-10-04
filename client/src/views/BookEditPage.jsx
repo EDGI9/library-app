@@ -108,7 +108,7 @@ const BookEditPage = () => {
                   Name
                 </label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <div className="flex shadow-sm  sm:max-w-md">
                     <TextInput 
                       name="name"
                       value={form?.name}
@@ -142,7 +142,7 @@ const BookEditPage = () => {
                   Image
                 </label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <div className="flex shadow-sm  sm:max-w-md">
                     <TextInput 
                       name="image"
                       value={form?.image}
@@ -159,7 +159,7 @@ const BookEditPage = () => {
                   Genres
                 </label>
                 <div className="flex flex-col mb-3">
-                    <div className="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <div className="flex w-full rounded-md shadow-sm  sm:max-w-md">
                       
                       <TextInput 
                         name="genres"
@@ -191,7 +191,7 @@ const BookEditPage = () => {
                   Author
                 </label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <div className="flex shadow-sm  sm:max-w-md">
                     <TextInput 
                       name="author"
                       value={form?.author}

@@ -6,9 +6,11 @@ const Navbar = () => {
     return (
         <div data-testid="qa-navbar">
             <nav className="flex justify-between items-center mb-6 p-6 gap-8">
-                <NavLink to="/" className="flex-grow">
-                    <img alt="Logo" className="h-10 inline" src={logoImage}></img>
-                </NavLink>
+                <div className="flex-grow">
+                    <NavLink to="/" >
+                        <img alt="Logo" className="h-10 inline" src={logoImage}></img>
+                    </NavLink>
+                </div>
 
                 <NavLink className="inline-flex items-center justify-center text-primary font-bold hover:border-b-2 border-primary px-3" to="/gallery">
                     Gallery
