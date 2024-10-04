@@ -1,5 +1,5 @@
 export interface BookFiltersDTO {
-    name: string;
-    genre: string;
-    author: string;
+    name?: string;
+    genre?: string;
+    author?: string;
 }
