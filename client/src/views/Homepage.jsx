@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { faker } from "@faker-js/faker";
+import { NavLink } from "react-router-dom";
+
 
 import BookList from "../components/BookList.jsx";
 import Counter from "../components/Counter.jsx";
@@ -72,7 +74,9 @@ const Homepage = () => {
             </section>
             <section className='row-start-3 col-span-12  mb-48'>
                 <div className="flex flex-col md:flex-row items-center justify-center row-start-3 gap-4">
-                    <Counter icon={book} number={books.length} text="Total Books"></Counter>
+                    <NavLink to="/gallery">
+                        <Counter icon={book} number={books.length} text="Total Books"></Counter>
+                    </NavLink>
                     <Counter icon={user} number="2" text="Authors"></Counter>
                     <Counter icon={review} number={`${faker.number.float({ multipleOf: 0.25, min: 0, max:10 })}k`} text="Reviews"></Counter>
                 </div>

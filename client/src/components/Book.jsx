@@ -23,8 +23,8 @@ const actionButtons = (props) => {
 
 const Book = (props) => (
     <div data-testid="qa-book" className="flex flex-col items-center gap-3">
-      <div data-testid="qa-book_clickable" className="max-w-[200px] max-h-[500px] hover:cursor-pointer" onClick={() => {props.goToBook(props.book?.id);}}>
-        <img src={props.book?.image} alt="" width={200} height={500} />
+      <div data-testid="qa-book_clickable" className="max-w-[200px] max-h-[320px] hover:cursor-pointer overflow-hidden" onClick={() => {props.goToBook(props.book?.id);}}>
+        <img src={props.book?.image} alt="" width={200} height={320} />
       </div>
       <h1 className="font-bold">{props.book?.name}</h1>
       {actionButtons(props)}

@@ -1,4 +1,4 @@
-export interface BookFiltersDTO{
+export interface BookFiltersDTO {
     name?: string;
     genre?: string;
     author?: string;

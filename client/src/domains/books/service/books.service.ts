@@ -1,4 +1,5 @@
 import { BookDTO } from "../core/dtos/book.dto";
+import { BookFiltersDTO } from "../core/dtos/book-filters.dto";
 import { BookDriverReaderPort } from "../ports/driven/book-drive-reader.port";
 import { BookDriverWriterPort } from "../ports/driven/book-driven-writer.port";
 import { BookDriverPort } from "../ports/driver/book-driver.port";
@@ -39,6 +40,23 @@ export default function BookService(reader: BookDriverReaderPort, writer:BookDri
         }
     }
 
+    async function getByFilters(filters: BookFiltersDTO): Promise<BookDTO[] | []> {
+        const entities = await reader.getByFilters(filters);
+
+        if (!entities) {
+            return []
+        }
+
+        return <BookDTO[]>entities.map(entity => ({
+            id: entity.id,
+            name: entity.name,
+            description: entity.description,
+            genre: entity.genre,
+            image: entity.image,
+            author: entity.author,
+        }))
+    }
+
     async function create(dto: BookDTO): Promise<void> {
         if (!dto) {
             return
@@ -66,6 +84,7 @@ export default function BookService(reader: BookDriverReaderPort, writer:BookDri
     return {
         getAll,
         getById,
+        getByFilters,
         create,
         update,
         remove
