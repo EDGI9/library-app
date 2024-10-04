@@ -9,15 +9,16 @@ import { GET_BOOK, CREATE_BOOK, UPDATE_BOOK } from "../store/slices/book";
 
 
 
-export default function BookEditPage() {
-  const [form, setForm] = useState({
+const BookEditPage = () => {
+  let [form, setForm] = useState({
     name: "",
     description: "",
     genre: [],
-    image: ""
+    image: "",
+    author: ""
   });
-  const [isNew, setIsNew] = useState(true);
-  const [genreInputValue, setGenreInputValue] = useState('');
+  let [isNew, setIsNew] = useState(true);
+  let [genreInputValue, setGenreInputValue] = useState('');
 
   const params = useParams();
   const navigate = useNavigate();
@@ -182,6 +183,23 @@ export default function BookEditPage() {
                     ))}
                 </div>
             </div>
+            <div>
+              <label
+                  htmlFor="author"
+                  className="block text-sm font-medium leading-6 text-slate-900"
+                >
+                  Author
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <TextInput 
+                      name="author"
+                      value={form?.author}
+                      placeholder="Author" 
+                      onChange={(text) => updateForm({ author: text})}/>
+                  </div>
+                </div>
+            </div>
           </div>
         </div>
         <input
@@ -193,3 +211,5 @@ export default function BookEditPage() {
     </>
   );
 }
+
+export default BookEditPage;

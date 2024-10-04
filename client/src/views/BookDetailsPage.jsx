@@ -5,7 +5,7 @@ import { GET_BOOK } from "../store/slices/book";
 
 import Pill from "../components/Pill.jsx";
 
-export default function BookDetailsPage () {
+const BookDetailsPage = () => {
     const params = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -54,3 +54,5 @@ export default function BookDetailsPage () {
         </section>
     ) 
 }
+
+export default BookDetailsPage;
