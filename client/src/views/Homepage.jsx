@@ -21,14 +21,15 @@ import { DELETE_BOOK } from '../store/slices/book';
 const Homepage = () => {
     const dispatch = useDispatch();
     const books = useSelector((state) => state.books.items);
+    const recomendedBook = books[Math.floor(Math.random() * (books.length - 0 + 1) + 0)];
 
     useEffect(() => {
-        getBooks()
+        getBooks();
     }, []);
 
     function getBooks() {
-        dispatch(GET_ALL_BOOKS())
-    }
+        dispatch(GET_ALL_BOOKS());
+    };
 
     async function deleteBook(id) {
         await dispatch(DELETE_BOOK(id));
@@ -60,7 +61,7 @@ const Homepage = () => {
                             <b className='text-primary'>This Week</b>
                         </h1>
                         <div className="flex items-center justify-start row-start-2 gap-4 mb-10">
-                            <BookList books={books} deleteBook={deleteBook}></BookList>
+                            <BookList books={books.slice(0, 4)} deleteBook={deleteBook}></BookList>
                         </div>
                     </section>
                     <section className="row-start-1 col-start-8 col-span-4">
@@ -68,7 +69,7 @@ const Homepage = () => {
                             <span>Recomendation</span> 
                             <b className='text-primary'>For You</b>
                         </h1>
-                        <Book book={books[0]}></Book>
+                        <Book book={recomendedBook}></Book>
                     </section>
                 </div>
             </section>
