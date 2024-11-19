@@ -4,7 +4,7 @@ import BookService from "../index";
 import { BookDTO } from "../core/dtos/book.dto";
 
 import Book from "../../../__mocks__/components/Book";
-
+import Books from "../../../__mocks__/components/BookList";
 
 describe("Test Book service", () => {
 
@@ -15,8 +15,8 @@ describe("Test Book service", () => {
         expect(BookService.getAll).toBeDefined();
         expect(BookService.getAll).toBeInstanceOf(Function);
 
-        const spy = vi.spyOn(BookService, "getAll");
-        const result = await BookService.getAll();       
+        const spy = vi.spyOn(BookService, "getAll").mockResolvedValue(Books);
+        const result = await BookService.getAll();           
 
         expect(spy).toHaveBeenCalledOnce();
 
@@ -41,11 +41,12 @@ describe("Test Book service", () => {
         expect(BookService.getById).toBeDefined();
         expect(BookService.getById).toBeInstanceOf(Function);
 
+        vi.spyOn(BookService, "getAll").mockResolvedValue(Books);
         const resultGetAll = await BookService.getAll();
 
         expect(resultGetAll.length).toBeGreaterThan(0);
 
-        const spy = vi.spyOn(BookService, "getById");
+        const spy = vi.spyOn(BookService, "getById").mockResolvedValue(resultGetAll[0]);
         //@ts-ignore
         const result = await BookService.getById(resultGetAll[0].id);
 
@@ -72,7 +73,7 @@ describe("Test Book service", () => {
         expect(BookService.create).toBeDefined();
         expect(BookService.create).toBeInstanceOf(Function);
 
-        const spy = vi.spyOn(BookService, "create");
+        const spy = vi.spyOn(BookService, "create").mockResolvedValue(book);
         await BookService.create(book);
 
         expect(spy).toHaveBeenCalledOnce();
@@ -88,7 +89,7 @@ describe("Test Book service", () => {
         expect(BookService.update).toBeDefined();
         expect(BookService.update).toBeInstanceOf(Function);
 
-        const spy = vi.spyOn(BookService, "update");
+        const spy = vi.spyOn(BookService, "update").mockResolvedValue(book);
         await BookService.update(id, book);
 
         expect(spy).toHaveBeenCalledOnce();
@@ -103,7 +104,7 @@ describe("Test Book service", () => {
         expect(BookService.remove).toBeDefined();
         expect(BookService.remove).toBeInstanceOf(Function);
 
-        const spy = vi.spyOn(BookService, "remove");
+        const spy = vi.spyOn(BookService, "remove").mockResolvedValue({ success: true });
         await BookService.remove(id);
 
         expect(spy).toHaveBeenCalledOnce();
