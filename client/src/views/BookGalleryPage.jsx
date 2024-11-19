@@ -32,7 +32,7 @@ const BookGalleryPage = () => {
     return (
         <div className="grid grid-cols-3 grid-rows-1 px-5">
             <section className="max-w-96">
-                {<Filters fields={filters} onChange={updateFilters}/>}
+                <Filters fields={filters} onChange={updateFilters}/>
             </section>
             <section className='col-span-2'>
                 <BookList books={books}></BookList>

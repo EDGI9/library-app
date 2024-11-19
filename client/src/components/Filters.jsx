@@ -13,7 +13,7 @@ const Filters =(props)=> {
        return fields.map((item, index) => {
             return (
                 <label key={index} className="flex flex-col gap-2">
-                    <h3>{item[0]}</h3>
+                    <h3 className="capitalize">{item[0]}</h3>
                     <TextInput 
                         name={item[0]}
                         value={item[1]}
