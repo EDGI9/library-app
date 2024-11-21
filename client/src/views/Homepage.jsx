@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { faker } from "@faker-js/faker";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 import BookList from "../components/BookList.jsx";
@@ -20,6 +20,7 @@ import { DELETE_BOOK } from '../store/slices/book';
 
 const Homepage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const books = useSelector((state) => state.books.items);
     const recomendedBook = books[Math.floor(Math.random() * (books.length - 0 + 1) + 0)];
 
@@ -35,6 +36,10 @@ const Homepage = () => {
         await dispatch(DELETE_BOOK(id));
         getBooks();
     };
+
+    function goToBook(id) {
+        navigate(`/view/${id}`);
+    }
 
     return (
         <div className="flex flex-col md:grid auto-rows-max grid-cols-12 gap-4">
@@ -69,7 +74,7 @@ const Homepage = () => {
                             <span>Recomendation</span> 
                             <b className='text-primary'>For You</b>
                         </h1>
-                        <Book book={recomendedBook}></Book>
+                        <Book book={recomendedBook} goToBook={() => goToBook(recomendedBook.id)}></Book>
                     </section>
                 </div>
             </section>
