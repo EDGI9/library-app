@@ -1,16 +1,46 @@
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 
 import logoImage from '../assets/logo.webp';
+import SearchDropdown from './SearchDropdown';
+import { GET_FILTERED_BOOKS, CLEAR_FILTERED_BOOKS } from "../store/slices/books";
 
 const Navbar = () => {
+    const dispatch = useDispatch();
+    const books = useSelector((state) => state.books.filteredItems);
+
+    function onInput(text) {
+        if (text.trim() === '') {
+            clearResults();
+        } else {
+            dispatch(GET_FILTERED_BOOKS({name: text}));
+        }
+    };
+
+    function clearResults() {
+        if (books.length >= 0) {
+            dispatch(CLEAR_FILTERED_BOOKS());
+        }
+    };
+
+    function clickOutside() {
+        clearResults();
+    };
+
     return (
         <div data-testid="qa-navbar">
-            <nav className="flex justify-between items-center mb-6 p-6 gap-8">
+            <nav className="flex justify-between items-center mb-6 p-6 gap-8 max-h-[90px]">
                 <div className="flex-grow">
                     <NavLink to="/" >
                         <img alt="Logo" className="h-10 inline" src={logoImage}></img>
                     </NavLink>
                 </div>
+
+                <SearchDropdown
+                    items={books} 
+                    onInput={onInput} 
+                    onClickOutside={clickOutside} 
+                />
 
                 <NavLink className="inline-flex items-center justify-center text-primary font-bold hover:border-b-2 border-primary px-3" to="/gallery">
                     Gallery

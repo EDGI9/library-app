@@ -18,6 +18,9 @@ const reducers = {
     SET_FILTERED_BOOKS: (state, action) => {
         state.filteredItems = action.payload
     },
+    CLEAR_FILTERED_BOOKS: (state) => {
+        state.filteredItems = []
+    },
 }
 
 export const GET_ALL_BOOKS = createAsyncThunk(StorePaths.GET_ALL_BOOKS, async () => {
@@ -58,6 +61,6 @@ const books = createSlice({
   },
 })
 
-export const { SET_BOOKS, SET_FILTERED_BOOKS } = books.actions
+export const { SET_BOOKS, SET_FILTERED_BOOKS, CLEAR_FILTERED_BOOKS } = books.actions
 
 export default books.reducer
