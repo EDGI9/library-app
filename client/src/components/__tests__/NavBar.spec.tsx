@@ -2,7 +2,9 @@ import { describe, it, expect, afterAll, beforeEach } from "vitest";
 import { render, cleanup, RenderResult } from '@testing-library/react';
 import React from "react";
 import { MemoryRouter } from "react-router-dom"
+import { Provider } from "react-redux"
 
+import store from "../../store/index.js";
 import Navbar from "../Navbar.jsx";
 
 describe('Navbar component', () => {
@@ -11,9 +13,11 @@ describe('Navbar component', () => {
    
     beforeEach(()=> {
         component = render(
-            <MemoryRouter>
-                <Navbar />
-            </MemoryRouter>
+            <Provider store={store}>
+                <MemoryRouter>
+                    <Navbar />
+                </MemoryRouter>
+            </Provider>
         );
     });
 
