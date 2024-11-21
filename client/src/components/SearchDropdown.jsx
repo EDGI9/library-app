@@ -62,7 +62,7 @@ const SearchDropdown = (props) => {
                         type="text"
                         value={searchTerm}
                         onChange={handleInputChange}
-                        className="w-full px-5 py-2 pr-20 text-base bg-white border border-gray-200 rounded-full focus:outline-none focus:border-gray-300 shadow-md hover:shadow-lg transition-shadow duration-200"
+                        className="w-full px-5 py-2 pr-20 text-base bg-white border border-gray-200 rounded-md focus:outline-none focus:border-gray-300 shadow-md hover:shadow-lg transition-shadow duration-200"
                         placeholder="Search for book name"
                     />
                 </div>
