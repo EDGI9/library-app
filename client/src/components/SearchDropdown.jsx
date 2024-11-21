@@ -32,6 +32,27 @@ const SearchDropdown = (props) => {
         setSearchTerm(e.target.value);
     };
 
+    function ListItems() {
+        if (props.items?.length == 0) {
+            return
+        }
+
+        const totalItems = props.items.length;
+        const maxNumberOfItems = 6;
+        const filteredItems = totalItems > maxNumberOfItems ? props.items.filter((item, index) => index < maxNumberOfItems) : props.items;
+
+        return filteredItems.map(item => (
+            <li key={item.id} className="mb-2">
+                    <NavLink className="w-full inline-flex items-center justify-start text-primary font-bold hover:bg-slate-100 px-3" onClick={props.onClickOutside} to={"/view/"+ item.id}>
+                        <div className="flex items-center gap-3">
+                            {item.image && <img src={item.image} alt={item.name && item.name} height={40} width={30} />}
+                            {item.name && <span>{item.name}</span>}
+                        </div>
+                    </NavLink>
+            </li> 
+        ));
+    }
+
     return (
         <div ref={component} data-testid="qa-search-dropdown-container" className="flex flex-col items-center justify-center bg-white p-4 relative">
             <form onSubmit={(e) => e.preventDefault()} className="w-full max-w-2xl">
@@ -49,17 +70,7 @@ const SearchDropdown = (props) => {
             {(props.items && props.items.length > 0) && (
                 <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 absolute top-16">
                     <ul data-testid="qa-search-dropdown-list">
-                        {props.items.map(result => (
-                                <li key={result.id} className="mb-2">
-                                    <NavLink className="w-full inline-flex items-center justify-start text-primary font-bold hover:bg-slate-100 px-3" onClick={props.onClickOutside} to={"/view/"+ result.id}>
-                                        <div className="flex items-center gap-3">
-                                            {result.image && <img src={result.image} alt="" height={40} width={30} />}
-                                            {result.name && <span>{result.name}</span>}
-                                        </div>
-                                    </NavLink>
-                                </li> 
-                            )
-                        )}
+                        {ListItems()}
                     </ul>
                 </div>
             )}
