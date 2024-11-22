@@ -43,9 +43,9 @@ const book = createSlice({
       .addCase(GET_BOOK.fulfilled, (state, action) => {
         state.data = action.payload;  
       })
-      .addCase(GET_BOOK.rejected, (state) => {
+      .addCase(GET_BOOK.rejected, (state,action) => {
         console.log('Error getting Book');
-        console.log(state);
+        console.log(state, action);
       });
 
     builder
@@ -55,9 +55,9 @@ const book = createSlice({
       .addCase(CREATE_BOOK.fulfilled, (state, action) => {
         console.log('Book created');  
       })
-      .addCase(CREATE_BOOK.rejected, (state) => {
+      .addCase(CREATE_BOOK.rejected, (state, action) => {
         console.log('Error getting Book');
-        console.log(state);
+        console.log(state, action);
       });
 
     builder
@@ -67,9 +67,9 @@ const book = createSlice({
       .addCase(UPDATE_BOOK.fulfilled, () => {
         console.log('Book updated');
       })
-      .addCase(UPDATE_BOOK.rejected, (state) => {
+      .addCase(UPDATE_BOOK.rejected, (state, action) => {
         console.log('Error updating Book');
-        console.log(state);
+        console.log(state, action);
       });
 
     builder
@@ -79,9 +79,9 @@ const book = createSlice({
       .addCase(DELETE_BOOK.fulfilled, () => {
         console.log('Book deleted');
       })
-      .addCase(DELETE_BOOK.rejected, (state) => {
+      .addCase(DELETE_BOOK.rejected, (state, action) => {
         console.log('Error deleting Book');
-        console.log(state);
+        console.log(state,action);
       });
   },
 })

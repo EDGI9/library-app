@@ -45,7 +45,7 @@ const books = createSlice({
       })
       .addCase(GET_ALL_BOOKS.rejected, (state, action) => {
         console.log('Error');
-        console.log(state);
+        console.log(state, action);
       });
     builder
       .addCase(GET_FILTERED_BOOKS.pending, (state) => {
@@ -56,7 +56,7 @@ const books = createSlice({
       })
       .addCase(GET_FILTERED_BOOKS.rejected, (state, action) => {
         console.log('Error');
-        console.log(state);
+        console.log(state, action);
       });
   },
 })
