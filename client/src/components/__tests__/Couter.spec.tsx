@@ -1,9 +1,9 @@
-import { describe, it, expect, afterAll, beforeEach } from "vitest";
+import { describe, it, expect, afterAll, beforeEach } from 'vitest';
 import { render, cleanup, RenderResult } from '@testing-library/react';
-import { faker } from "@faker-js/faker";
-import React from "react";
+import { faker } from '@faker-js/faker';
+import React from 'react';
 
-import Counter from "../Counter.jsx";
+import Counter from '../Counter.jsx';
 
 describe('Counter component', () => {
     let component: RenderResult;
@@ -11,11 +11,11 @@ describe('Counter component', () => {
     const props = {
         icon: faker.word.words(1),
         number: faker.number.int(100),
-        text:faker.word.words(1),
-    }
+        text: faker.word.words(1),
+    };
 
-    beforeEach(()=> {
-        component = render(<Counter {...props}/>);
+    beforeEach(() => {
+        component = render(<Counter {...props} />);
     });
 
     afterAll(() => {
@@ -35,7 +35,7 @@ describe('Counter component', () => {
         expect(image).toBeTruthy();
         expect(number).toBeTruthy();
         expect(text).toBeTruthy();
-        
+
         expect(image.getAttribute('src')).toEqual(props.icon);
         expect(number.textContent).toEqual(props.number.toString());
         expect(text.textContent).toEqual(props.text.toString());

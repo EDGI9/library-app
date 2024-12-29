@@ -1,4 +1,4 @@
-import { Generators } from "../../composables/generators";
+import { Generators } from '../../composables/generators';
 import { BookDTO } from '../../domains/books/core/dtos/book.dto';
 
 const bookList: BookDTO[] = [

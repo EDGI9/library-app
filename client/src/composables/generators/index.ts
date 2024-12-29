@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from '@faker-js/faker';
 import { BookDTO } from '../../domains/books/core/dtos/book.dto';
 
 const bookGenerator = () => {
@@ -9,9 +9,9 @@ const bookGenerator = () => {
         image: faker.image.url(),
         genre: [faker.word.words(1), faker.word.words(1), faker.word.words(1)],
         author: faker.word.words(2),
-    } 
-}
+    };
+};
 
 export const Generators = {
-    bookGenerator
+    bookGenerator,
 };

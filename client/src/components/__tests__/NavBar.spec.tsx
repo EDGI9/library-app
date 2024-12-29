@@ -1,23 +1,23 @@
-import { describe, it, expect, afterAll, beforeEach } from "vitest";
+import { describe, it, expect, afterAll, beforeEach } from 'vitest';
 import { render, cleanup, RenderResult } from '@testing-library/react';
-import React from "react";
-import { MemoryRouter } from "react-router-dom"
-import { Provider } from "react-redux"
+import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import store from "../../store/index.js";
-import Navbar from "../Navbar.jsx";
+import store from '../../store/index.js';
+import Navbar from '../Navbar.jsx';
 
 describe('Navbar component', () => {
     let component: RenderResult;
     let navbar: HTMLElement;
-   
-    beforeEach(()=> {
+
+    beforeEach(() => {
         component = render(
             <Provider store={store}>
                 <MemoryRouter>
                     <Navbar />
                 </MemoryRouter>
-            </Provider>
+            </Provider>,
         );
     });
 

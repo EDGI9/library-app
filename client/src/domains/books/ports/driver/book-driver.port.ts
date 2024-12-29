@@ -1,5 +1,5 @@
-import { BookDTO } from "../../core/dtos/book.dto";
-import { BookFiltersDTO } from "../../core/dtos/book-filters.dto";
+import { BookDTO } from '../../core/dtos/book.dto';
+import { BookFiltersDTO } from '../../core/dtos/book-filters.dto';
 
 export interface BookDriverPort {
     getAll(): Promise<BookDTO[] | []>;
