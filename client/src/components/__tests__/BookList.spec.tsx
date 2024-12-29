@@ -1,11 +1,16 @@
-import { describe, it, expect, afterAll, vi, beforeEach } from "vitest";
-import { fireEvent, render, cleanup, RenderResult } from '@testing-library/react';
-import { MemoryRouter } from "react-router-dom";
-import React from "react";
+import { describe, it, expect, afterAll, vi, beforeEach } from 'vitest';
+import {
+    fireEvent,
+    render,
+    cleanup,
+    RenderResult,
+} from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import React from 'react';
 
-import BookList from "../BookList.jsx";
+import BookList from '../BookList.jsx';
 
-import mockBookList from "../../__mocks__/components/BookList.js"
+import mockBookList from '../../__mocks__/components/BookList.js';
 
 describe('BookList component', () => {
     let bookList = mockBookList;
@@ -13,12 +18,15 @@ describe('BookList component', () => {
     let component: RenderResult;
     let bookListElement: HTMLElement;
 
-    beforeEach(()=> {
+    beforeEach(() => {
         mockGoToBook = vi.fn();
         component = render(
             <MemoryRouter>
-                <BookList books={bookList} goToBook={mockGoToBook}/>
-            </MemoryRouter>
+                <BookList
+                    books={bookList}
+                    goToBook={mockGoToBook}
+                />
+            </MemoryRouter>,
         );
     });
 
@@ -33,9 +41,10 @@ describe('BookList component', () => {
 
     // Can't seem to reach the book component to trigger the click
     it.skip('Book is clickable', () => {
-        const firstBookClickableDiv = component.getAllByTestId("qa-book_clickable")[0];
+        const firstBookClickableDiv =
+            component.getAllByTestId('qa-book_clickable')[0];
         fireEvent.click(firstBookClickableDiv);
-    
+
         expect(mockGoToBook).toHaveBeenCalledWith(bookList[0].id);
         expect(mockGoToBook).toHaveBeenCalledOnce();
     });

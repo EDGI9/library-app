@@ -1,10 +1,16 @@
-import { describe, it, expect, afterAll,beforeEach, vi } from "vitest";
-import { fireEvent, render, screen, cleanup, RenderResult } from '@testing-library/react';
-import { faker } from "@faker-js/faker";
+import { describe, it, expect, afterAll, beforeEach, vi } from 'vitest';
+import {
+    fireEvent,
+    render,
+    screen,
+    cleanup,
+    RenderResult,
+} from '@testing-library/react';
+import { faker } from '@faker-js/faker';
 
-import React from "react";
+import React from 'react';
 
-import Filters from "../Filters.jsx";
+import Filters from '../Filters.jsx';
 
 describe('Filters component', () => {
     let component: RenderResult;
@@ -15,11 +21,16 @@ describe('Filters component', () => {
             [faker.word.words(1)]: faker.word.words(1),
             [faker.word.words(1)]: faker.word.words(1),
         },
-        onChange: vi.fn()
-    }
+        onChange: vi.fn(),
+    };
 
-    beforeEach(()=> {
-        component = render(<Filters fields={props.fields} onChange={props.onChange}/>);
+    beforeEach(() => {
+        component = render(
+            <Filters
+                fields={props.fields}
+                onChange={props.onChange}
+            />,
+        );
     });
 
     afterAll(() => {
@@ -32,23 +43,27 @@ describe('Filters component', () => {
     });
 
     it('Renders all dynamically created inputs', () => {
-       const propValues = Object.entries(props.fields);
-       propValues.forEach((item) => {
-        const input: HTMLInputElement = screen.getByLabelText(item[0], {selector: 'input'});
-        expect(input).toBeTruthy();
-       })
+        const propValues = Object.entries(props.fields);
+        propValues.forEach((item) => {
+            const input: HTMLInputElement = screen.getByLabelText(item[0], {
+                selector: 'input',
+            });
+            expect(input).toBeTruthy();
+        });
     });
 
     it('Props properly update fields', () => {
         const propValues = Object.entries(props.fields)[0];
-        let input: HTMLInputElement = screen.getByLabelText(propValues[0], {selector: 'input'});
+        let input: HTMLInputElement = screen.getByLabelText(propValues[0], {
+            selector: 'input',
+        });
 
         expect(input).toBeTruthy();
         expect(input.value).toEqual(props.fields[propValues[0]]);
 
         props.fields[propValues[0]] = faker.word.words(2);
-        component.rerender(<Filters fields={props.fields}/>);
-        input = screen.getByLabelText(propValues[0], {selector: 'input'});
+        component.rerender(<Filters fields={props.fields} />);
+        input = screen.getByLabelText(propValues[0], { selector: 'input' });
 
         expect(input).toBeTruthy();
         expect(input.value).toEqual(props.fields[propValues[0]]);
@@ -57,11 +72,15 @@ describe('Filters component', () => {
     it('Emits update on field change', async () => {
         const nextText: string = faker.word.words(2);
         const propValues = Object.entries(props.fields)[0];
-        let input: HTMLInputElement = screen.getByLabelText(propValues[0], {selector: 'input'});
+        let input: HTMLInputElement = screen.getByLabelText(propValues[0], {
+            selector: 'input',
+        });
 
-        await fireEvent.change(input, {target: {value: nextText}});
-        
+        await fireEvent.change(input, { target: { value: nextText } });
+
         expect(props.onChange).toHaveBeenCalledOnce();
-        expect(props.onChange).toHaveBeenCalledWith({[propValues[0]]: nextText});
+        expect(props.onChange).toHaveBeenCalledWith({
+            [propValues[0]]: nextText,
+        });
     });
 });

@@ -1,3 +1,3 @@
 export function ErrorHandler(type, message: string) {
-    console.log(type, message)
+    console.log(type, message);
 }

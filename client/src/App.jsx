@@ -1,18 +1,18 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from 'react-router-dom';
 
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const App = () => {
-  const location = useLocation();
-  const classList = `w-full h-full bg-main-background bg-no-repeat ${location.pathname == "/" ? "bg-[center_top_45em]" : "bg-[center_top]"} `; 
+    const location = useLocation();
+    const classList = `w-full h-full bg-main-background bg-no-repeat ${location.pathname == '/' ? 'bg-[center_top_45em]' : 'bg-[center_top]'} `;
 
-  return (
-    <div className={classList}>
-      <Navbar />
-      <Outlet />
-      <Footer />
-    </div>
-  );
+    return (
+        <div className={classList}>
+            <Navbar />
+            <Outlet />
+            <Footer />
+        </div>
+    );
 };
 export default App;

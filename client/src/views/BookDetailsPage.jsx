@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_BOOK } from "../store/slices/book";
+import { GET_BOOK } from '../store/slices/book';
 
-import Pill from "../components/Pill.jsx";
+import Pill from '../components/Pill.jsx';
 
 const BookDetailsPage = () => {
     const params = useParams();
@@ -14,27 +14,26 @@ const BookDetailsPage = () => {
     useEffect(() => {
         async function fetchData() {
             const id = params.id?.toString() || undefined;
-            const book = await dispatch(GET_BOOK(id))
-            
+            const book = await dispatch(GET_BOOK(id));
+
             if (!book) {
                 console.warn(`Book with id ${id} not found`);
-                navigate("/");
+                navigate('/');
                 return;
             }
         }
         fetchData();
     }, [params.id, navigate]);
 
-
     function genreItems() {
-        return (bookDetails.genre?.map((item,index) => {
+        return bookDetails.genre?.map((item, index) => {
             return (
                 <Pill
                     key={index}
                     text={item}
                 />
-            )
-        }))
+            );
+        });
     }
 
     return (
@@ -46,13 +45,20 @@ const BookDetailsPage = () => {
                         <div className="flex gap-2">{genreItems()}</div>
                     </div>
                     <div className="flex justify-between flex-col flex-col-reverse md:flex-row gap-12">
-                        <p className="max-w-lg text-slate-400">{bookDetails.description}</p>
-                        <img src={bookDetails.image} alt="" height={500} width={300}/>
+                        <p className="max-w-lg text-slate-400">
+                            {bookDetails.description}
+                        </p>
+                        <img
+                            src={bookDetails.image}
+                            alt=""
+                            height={500}
+                            width={300}
+                        />
                     </div>
                 </div>
             </div>
         </section>
-    ) 
-}
+    );
+};
 
 export default BookDetailsPage;

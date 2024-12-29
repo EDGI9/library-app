@@ -1,4 +1,4 @@
-import { BookEntity } from "../../core/entities/book.entity";
+import { BookEntity } from '../../core/entities/book.entity';
 
 export interface BookDriverWriterPort {
     create(dto: BookEntity): Promise<void>;

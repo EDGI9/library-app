@@ -1,32 +1,39 @@
-import { describe, it, expect, afterAll, beforeEach, vi } from "vitest";
-import { render, cleanup, RenderResult, fireEvent  } from '@testing-library/react';
-import { faker } from "@faker-js/faker";
-import { MemoryRouter } from "react-router-dom"
+import { describe, it, expect, afterAll, beforeEach, vi } from 'vitest';
+import {
+    render,
+    cleanup,
+    RenderResult,
+    fireEvent,
+} from '@testing-library/react';
+import { faker } from '@faker-js/faker';
+import { MemoryRouter } from 'react-router-dom';
 
-import React from "react";
+import React from 'react';
 
-import SearchDropdown from "../SearchDropdown.jsx";
+import SearchDropdown from '../SearchDropdown.jsx';
 
-import mockBookList from "../../__mocks__/components/BookList.js"
+import mockBookList from '../../__mocks__/components/BookList.js';
 
 describe('SearchDropdown component', () => {
     let component: RenderResult;
     let searchDropdownContainer: HTMLElement;
     let searchDropdownInput: HTMLElement;
     let searchDropdownList: HTMLElement;
-    const props ={
+    const props = {
         items: mockBookList,
         onInput: vi.fn(),
         onClickOutside: vi.fn(),
-    }
-   
-    beforeEach(()=> {
+    };
+
+    beforeEach(() => {
         component = render(
             <MemoryRouter>
-                <SearchDropdown {...props}/>
-            </MemoryRouter>
+                <SearchDropdown {...props} />
+            </MemoryRouter>,
         );
-        searchDropdownContainer = component.getByTestId('qa-search-dropdown-container');
+        searchDropdownContainer = component.getByTestId(
+            'qa-search-dropdown-container',
+        );
         searchDropdownInput = component.getByTestId('qa-search-dropdown-input');
         searchDropdownList = component.getByTestId('qa-search-dropdown-list');
     });
@@ -47,7 +54,9 @@ describe('SearchDropdown component', () => {
 
     it.skip('Emits onInput Event ', async () => {
         const nextText: string = faker.word.words(2);
-        await fireEvent.change(searchDropdownInput, { target: { value: nextText } });
+        await fireEvent.change(searchDropdownInput, {
+            target: { value: nextText },
+        });
 
         // Event not being picked up
         expect(props.onInput).toHaveBeenCalledWith(nextText);
