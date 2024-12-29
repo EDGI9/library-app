@@ -1,12 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
 import book from './slices/book.js';
-import books from './slices/books.js';
-
-
+import bookGallery from './slices/bookGallery.js';
+import bookSearch from './slices/bookSearch.js';
 
 export default configureStore({
-  reducer: {
-    book: book,
-    books: books,
-  }
-})
+    reducer: {
+        book: book,
+        bookGallery: bookGallery,
+        bookSearch: bookSearch,
+    },
+});
