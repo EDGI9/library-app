@@ -20,7 +20,7 @@ const Footer = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-3/5">
                 <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1">
                     <div>
-                        <h3 className="text-lg pb-3 font-bold">Solutions</h3>
+                        <p className="text-lg pb-3 font-bold">Solutions</p>
                         <ul>
                             {solutionsList.map((item, index) => {
                                 return <li key={index}>{item}</li>;
@@ -28,7 +28,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-lg pb-3 font-bold">Company</h3>
+                        <p className="text-lg pb-3 font-bold">Company</p>
                         <ul>
                             {companyList.map((item, index) => {
                                 return <li key={index}>{item}</li>;
@@ -38,7 +38,7 @@ const Footer = () => {
                 </div>
                 <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1">
                     <div>
-                        <h3 className="text-lg pb-3 font-bold">Resources</h3>
+                        <p className="text-lg pb-3 font-bold">Resources</p>
                         <ul>
                             {resourcesList.map((item, index) => {
                                 return <li key={index}>{item}</li>;
@@ -46,7 +46,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-lg pb-3 font-bold">Contacts</h3>
+                        <p className="text-lg pb-3 font-bold">Contacts</p>
                         <ul>
                             {contactsList.map((item, index) => {
                                 return <li key={index}>{item}</li>;

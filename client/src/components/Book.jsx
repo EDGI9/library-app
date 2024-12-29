@@ -39,6 +39,7 @@ const Book = (props) => (
             <img
                 src={props.book?.image}
                 alt=""
+                loading="lazy"
                 width={200}
                 height={320}
             />

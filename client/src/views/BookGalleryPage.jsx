@@ -1,8 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense, lazy } from 'react';
 
 import BookList from '../components/BookList.jsx';
 import Filters from '../components/Filters.jsx';
+const Loading = lazy(() => import('../components/Loading.jsx'));
 
 import { GET_FILTERED_BOOKS } from '../store/slices/bookGallery';
 
@@ -38,7 +39,9 @@ const BookGalleryPage = () => {
                 />
             </section>
             <section className="col-span-2">
-                <BookList books={books}></BookList>
+                <Suspense fallback={<Loading />}>
+                    <BookList books={books}></BookList>
+                </Suspense>
             </section>
         </div>
     );
