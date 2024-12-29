@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, lazy } from 'react';
 import { faker } from '@faker-js/faker';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import BookList from '../components/BookList.jsx';
-import Counter from '../components/Counter.jsx';
-import Book from '../components/Book.jsx';
-import AuthorCard from '../components/AuthorCard.jsx';
+const BookList = lazy(() => import('../components/BookList.jsx'));
+const Counter = lazy(() => import('../components/Counter.jsx'));
+const Book = lazy(() => import('../components/Book.jsx'));
+const AuthorCard = lazy(() => import('../components/AuthorCard.jsx'));
 
 import homepageImage from '../assets/library-homepage-image.webp';
 import book from '../assets/open-book.webp';
@@ -60,17 +60,18 @@ const Homepage = () => {
                                 Bookshelf Bliss
                             </b>
                         </h1>
-                        <h6
-                            className="transform transition-all opacity-0 -translate-x-12 ease-out duration-700 delay-1000 text-sm text-slate-400"
+                        <p
+                            className="text-lg transform transition-all opacity-0 -translate-x-12 ease-out duration-700 delay-1000 text-sm text-slate-400"
                             data-replace='{ "-translate-x-12": "translate-x-0", "opacity-0": "opacity-100" }'
                         >
                             Browse for books at anytime
-                        </h6>
+                        </p>
                     </div>
                     <div className="hidden md:flex flex-col ">
                         <img
                             src={homepageImage}
                             height={500}
+                            loading="lazy"
                             width={700}
                             alt=""
                         />

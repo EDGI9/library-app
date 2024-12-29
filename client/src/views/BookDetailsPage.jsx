@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_BOOK } from '../store/slices/book';
 
 import Pill from '../components/Pill.jsx';
+const Loading = lazy(() => import('../components/Loading.jsx'));
 
 const BookDetailsPage = () => {
     const params = useParams();
@@ -39,23 +40,27 @@ const BookDetailsPage = () => {
     return (
         <section className="flex justify-center w-full">
             <div className="flex justify-center w-10/12">
-                <div className="flex flex-col w-11/12 max-w-4xl">
-                    <div className="flex flex-col gap-2 mb-9">
-                        <h1 className="text-4xl">{bookDetails.name}</h1>
-                        <div className="flex gap-2">{genreItems()}</div>
+                <Suspense fallback={<Loading />}>
+                    <div className="flex flex-col w-11/12 max-w-4xl">
+                        <div className="flex flex-col gap-2 mb-9">
+                            <h1 className="text-4xl">{bookDetails.name}</h1>
+                            <div className="flex gap-2">{genreItems()}</div>
+                        </div>
+                        <div className="flex justify-between flex-col flex-col-reverse md:flex-row gap-12">
+                            <p className="max-w-lg text-slate-400">
+                                {bookDetails.description}
+                            </p>
+
+                            <img
+                                src={bookDetails.image}
+                                alt=""
+                                loading="lazy"
+                                height={500}
+                                width={300}
+                            />
+                        </div>
                     </div>
-                    <div className="flex justify-between flex-col flex-col-reverse md:flex-row gap-12">
-                        <p className="max-w-lg text-slate-400">
-                            {bookDetails.description}
-                        </p>
-                        <img
-                            src={bookDetails.image}
-                            alt=""
-                            height={500}
-                            width={300}
-                        />
-                    </div>
-                </div>
+                </Suspense>
             </div>
         </section>
     );

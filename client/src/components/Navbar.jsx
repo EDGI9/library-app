@@ -39,6 +39,7 @@ const Navbar = () => {
                         <img
                             alt="Logo"
                             className="h-10 inline"
+                            loading="lazy"
                             src={logoImage}
                         ></img>
                     </NavLink>
