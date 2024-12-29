@@ -34,7 +34,7 @@ function ApiGateway() {
             // Return parsed JSON data
             return await response.json();
         } catch (error) {
-            const status = error.status || 'Unknown';
+            const status = error.status || 'API Error';
             const message = error.message || 'API Gateway Error';
             ErrorHandler(status, message);
             throw error; // Re-throw error for caller to handle

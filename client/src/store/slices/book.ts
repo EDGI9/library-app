@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { BookDTO } from '../../domains/books/core/dtos/book.dto';
 import BookService from '../../domains/books/index';
 import StorePaths from '../../domains/books/core/constants/book-store-paths.constants';
+import { ErrorHandler } from '../../api/error-handler';
 
 const initialState = {
     data: <BookDTO | {}>{},
@@ -55,8 +56,8 @@ const book = createSlice({
                 state.data = action.payload;
             })
             .addCase(GET_BOOK.rejected, (state, action) => {
-                console.log('Error getting Book');
                 console.log(state, action);
+                ErrorHandler('Error', 'Error getting Book');
             });
 
         builder
@@ -67,8 +68,8 @@ const book = createSlice({
                 console.log('Book created');
             })
             .addCase(CREATE_BOOK.rejected, (state, action) => {
-                console.log('Error getting Book');
                 console.log(state, action);
+                ErrorHandler('Error', 'Error getting Book');
             });
 
         builder
@@ -79,8 +80,8 @@ const book = createSlice({
                 console.log('Book updated');
             })
             .addCase(UPDATE_BOOK.rejected, (state, action) => {
-                console.log('Error updating Book');
                 console.log(state, action);
+                ErrorHandler('Error', 'Error updating Book');
             });
 
         builder
@@ -91,8 +92,8 @@ const book = createSlice({
                 console.log('Book deleted');
             })
             .addCase(DELETE_BOOK.rejected, (state, action) => {
-                console.log('Error deleting Book');
                 console.log(state, action);
+                ErrorHandler('Error', 'Error deleting Book');
             });
     },
 });

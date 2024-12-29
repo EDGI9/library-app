@@ -3,6 +3,7 @@ import BookService from '../../domains/books/index.js';
 import { BookDTO } from '../../domains/books/core/dtos/book.dto.js';
 import StorePaths from '../../domains/books/core/constants/book-store-paths.constants.js';
 import { BookFiltersDTO } from '../../domains/books/core/dtos/book-filters.dto.js';
+import { ErrorHandler } from '../../api/error-handler.js';
 
 const initialState = {
     items: <BookDTO[]>[],
@@ -48,8 +49,8 @@ const bookGallery = createSlice({
                 state.items = action.payload;
             })
             .addCase(GET_ALL_BOOKS.rejected, (state, action) => {
-                console.log('Error');
-                console.log(state, action);
+                console.log(state, action, 'here');
+                ErrorHandler('Error', 'Error gettting all Books');
             });
         builder
             .addCase(GET_FILTERED_BOOKS.pending, (state) => {
@@ -59,8 +60,8 @@ const bookGallery = createSlice({
                 state.filteredItems = action.payload;
             })
             .addCase(GET_FILTERED_BOOKS.rejected, (state, action) => {
-                console.log('Error');
                 console.log(state, action);
+                ErrorHandler('Error', 'Error gettting filtered Books');
             });
     },
 });
