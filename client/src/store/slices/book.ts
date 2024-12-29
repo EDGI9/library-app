@@ -3,6 +3,7 @@ import { BookDTO } from '../../domains/books/core/dtos/book.dto';
 import BookService from '../../domains/books/index';
 import StorePaths from '../../domains/books/core/constants/book-store-paths.constants';
 import { ErrorHandler } from '../../api/error-handler';
+import EventHandlerTypes from '../../config/event-handler-types';
 
 const initialState = {
     data: <BookDTO | {}>{},
@@ -57,7 +58,7 @@ const book = createSlice({
             })
             .addCase(GET_BOOK.rejected, (state, action) => {
                 console.log(state, action);
-                ErrorHandler('Error', 'Error getting Book');
+                ErrorHandler(EventHandlerTypes.ERROR, 'Error getting Book');
             });
 
         builder
@@ -69,7 +70,7 @@ const book = createSlice({
             })
             .addCase(CREATE_BOOK.rejected, (state, action) => {
                 console.log(state, action);
-                ErrorHandler('Error', 'Error getting Book');
+                ErrorHandler(EventHandlerTypes.ERROR, 'Error getting Book');
             });
 
         builder
@@ -81,7 +82,7 @@ const book = createSlice({
             })
             .addCase(UPDATE_BOOK.rejected, (state, action) => {
                 console.log(state, action);
-                ErrorHandler('Error', 'Error updating Book');
+                ErrorHandler(EventHandlerTypes.ERROR, 'Error updating Book');
             });
 
         builder
@@ -93,7 +94,7 @@ const book = createSlice({
             })
             .addCase(DELETE_BOOK.rejected, (state, action) => {
                 console.log(state, action);
-                ErrorHandler('Error', 'Error deleting Book');
+                ErrorHandler(EventHandlerTypes.ERROR, 'Error deleting Book');
             });
     },
 });
