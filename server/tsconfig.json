@@ -1,14 +1,26 @@
+// {
+//   "compilerOptions": {
+//     "module": "commonjs",
+//     "target": "ES6",
+//     "moduleResolution": "node",
+//     "esModuleInterop": true,
+//     "skipLibCheck": true,
+//     "strict": true,
+//     "outDir": "./dist",
+//     "rootDir": "./"
+//   },
+//   "include": ["./**/*.ts"],
+//   "exclude": ["node_modules", "dist"]
+// }
+
 {
   "compilerOptions": {
-    "module": "ESNext",
     "target": "ES6",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
+    "module": "commonjs",
     "strict": true,
+    "esModuleInterop": true,
     "outDir": "./dist",
     "rootDir": "./"
   },
-  "include": ["./**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["./**/*.ts"]
 }

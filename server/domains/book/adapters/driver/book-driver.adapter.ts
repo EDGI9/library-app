@@ -1,7 +1,7 @@
 import { Express, Router, Request, Response } from "express";
-import { BookResourcePathConstants } from "../../core/constants/book-resource-path.constants.js";
-import Books from "../../index.js";
-import { BookFiltersDTO } from "../../core/dtos/book-filters.dto.js";
+import { BookResourcePathConstants } from "../../core/constants/book-resource-path.constants";
+import Books from "../../index";
+import { BookFiltersDTO } from "../../core/dtos/book-filters.dto";
 
 export function BookController(app: Express, router: Router) : void {
     

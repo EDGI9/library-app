@@ -6,7 +6,7 @@ export const bookHandler = (book: BookEntity) => {
 
    return  <BookDTO>{
         ...book,
-        id: book._id.toString(),
+        id: book.id?.toString(),
         name: book.name.toString(),
         description: book.description.toString(),
         genre: book.genre,
