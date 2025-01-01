@@ -1,14 +1,14 @@
 import express from "express";
 
-import database from "../../../../config/database.js";
+import database from "../../../../config/database";
 
 import { ObjectId } from "mongodb";
-import { BookEntity } from "../../core/entities/book.entity.js";
-import { BookReaderDrivenPorts } from "../../ports/driven/book-reader-driven.ports.js";
-import { BookDatabase } from "../../core/constants/book-database.constants.js";
-import { BookProcessedFiltersEntity, BookFiltersEntity } from "../../core/entities/book-filters.entity.js";
+import { BookEntity } from "../../core/entities/book.entity";
+import { BookReaderDrivenPorts } from "../../ports/driven/book-reader-driven.ports";
+import { BookDatabase } from "../../core/constants/book-database.constants";
+import { BookProcessedFiltersEntity, BookFiltersEntity } from "../../core/entities/book-filters.entity";
 
-import { bookHandler } from "../../core/middleware/books.middleware.js";
+import { bookHandler } from "../../core/middleware/books.middleware";
 
 export function BookReaderAdapter(): BookReaderDrivenPorts{
     async function getAll(): Promise<BookEntity[]> {
@@ -16,7 +16,7 @@ export function BookReaderAdapter(): BookReaderDrivenPorts{
         try {
             let collection = await database.collection(BookDatabase);
             let results = await collection.find({}).toArray();
-
+            //@ts-ignore
             const entries: BookEntity[] = results.map((doc) => bookHandler(doc))
             
             return entries
@@ -36,6 +36,7 @@ export function BookReaderAdapter(): BookReaderDrivenPorts{
             let query = { _id: new ObjectId(id) };
             
             let result = await collection.findOne(query);
+            //@ts-ignore
             const processedResult = bookHandler(result);
             if (!result) {
                 return {};
@@ -56,6 +57,7 @@ export function BookReaderAdapter(): BookReaderDrivenPorts{
             }
             
             const collection = await database.collection(BookDatabase);
+            //@ts-ignore
             const query: BookProcessedFiltersEntity = {};
             
             if (filters.name) {
@@ -71,7 +73,7 @@ export function BookReaderAdapter(): BookReaderDrivenPorts{
             }
     
             const results = await collection.find(query).toArray();
-            
+            //@ts-ignore
             const entries: BookEntity[] = results.map((doc) => bookHandler(doc));
             
             return entries;

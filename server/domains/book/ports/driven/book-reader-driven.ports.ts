@@ -1,5 +1,5 @@
-import { BookEntity } from "../../core/entities/book.entity.js";
-import { BookFiltersEntity } from "../../core/entities/book-filters.entity.js";
+import { BookEntity } from "../../core/entities/book.entity";
+import { BookFiltersEntity } from "../../core/entities/book-filters.entity";
 
 export interface BookReaderDrivenPorts {
     getAll(): Promise<BookEntity[] | []>;

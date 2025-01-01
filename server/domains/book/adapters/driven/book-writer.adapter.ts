@@ -1,11 +1,11 @@
 import express from "express";
 
-import database from "../../../../config/database.js";
+import database from "../../../../config/database";
 
 import { ObjectId } from "mongodb";
-import { BookEntity } from "../../core/entities/book.entity.js";
-import { BookWriterDrivenPorts } from "../../ports/driven/book-writer-driven.ports.js";
-import { BookDatabase } from "../../core/constants/book-database.constants.js";
+import { BookEntity } from "../../core/entities/book.entity";
+import { BookWriterDrivenPorts } from "../../ports/driven/book-writer-driven.ports";
+import { BookDatabase } from "../../core/constants/book-database.constants";
 
 export function BookWritterAdapter(): BookWriterDrivenPorts {
 
