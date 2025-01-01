@@ -23,6 +23,8 @@ There is an administrator side to the application that allows for adding/removin
 - CSS (Tailwind)
 - CI/CD (GitHub Actions)
 - Containerization (Docker, Docker Compose, Dev container)
+- Architecture (Hexagonal Architecture)
+- Development Style (Test Driven Development)
 
 <table>
     <tr>
@@ -37,6 +39,7 @@ There is an administrator side to the application that allows for adding/removin
         <td><img src="https://github.com/devicons/devicon/blob/master/icons/vitest/vitest-original.svg" title="Vitest" width="200"/></td>
         <td><img src="https://github.com/tandpfun/skill-icons/blob/main/icons/GithubActions-Dark.svg" title="Github Actions" width="200"/></td>
         <td><img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Docker.svg" title="Docker" width="200"/></td>
+        <td><img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/MongoDB.svg" title="MongoDB" width="200"/></td>        
     </tr>
 <table>
 
@@ -46,7 +49,7 @@ There is an administrator side to the application that allows for adding/removin
 ### Docker Desktop
 
 ```
-In order to avoid issus with versioning, it's best to run this application with Docker and run the "docker compose" file to set up the enviornment.
+In order to avoid issues with versioning, it's best to run this application with Docker and run the "docker compose" file to set up the enviornment.
 ```
 
 ### Front-end

@@ -1,9 +1,9 @@
-import { BookDTO } from "../core/dtos/book.dto.js";
-import { BookFiltersDTO } from "../core/dtos/book-filters.dto.js";
-import { BookEntity } from "../core/entities/book.entity.js";
-import { BookReaderDrivenPorts } from "../ports/driven/book-reader-driven.ports.js";
-import { BookWriterDrivenPorts } from "../ports/driven/book-writer-driven.ports.js";
-import { BookDriverPort } from "../ports/driver/book-driver.ports.js";
+import { BookDTO } from "../core/dtos/book.dto";
+import { BookFiltersDTO } from "../core/dtos/book-filters.dto";
+import { BookEntity } from "../core/entities/book.entity";
+import { BookReaderDrivenPorts } from "../ports/driven/book-reader-driven.ports";
+import { BookWriterDrivenPorts } from "../ports/driven/book-writer-driven.ports";
+import { BookDriverPort } from "../ports/driver/book-driver.ports";
 
 export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDrivenPorts): BookDriverPort {
 
@@ -25,6 +25,7 @@ export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDri
     }
 
     async function getById(id: string): Promise<BookDTO | {}> {
+        //@ts-ignore
         const entity: BookEntity = await reader.getById(id);
 
         if (!entity) {
@@ -43,6 +44,7 @@ export function BookService(reader: BookReaderDrivenPorts, writer: BookWriterDri
     }
 
     async function getByFilters(filters: BookFiltersDTO): Promise<BookDTO[] | []> {
+        //@ts-ignore
         const entities: BookEntity[] = await reader.getByFilters(filters);
 
         if (!entities) {
