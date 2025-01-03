@@ -1,17 +1,19 @@
-FROM node:22-alpine3.19
+FROM node:22-alpine3.19 AS build
 
 WORKDIR /app
 
-# Install Git using apk
-RUN apk add --no-cache git
-
-COPY ./package.json ./
-COPY ./package-lock.json ./
+COPY package*.json ./
 
 RUN npm ci
 
 COPY . .
 
-EXPOSE 5173
+RUN npm run build
 
-CMD [ "npm", "run", "dev" ]
+FROM nginx:alpine
+
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
