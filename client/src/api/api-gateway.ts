@@ -1,5 +1,6 @@
-import { ErrorHandler } from './error-handler.js';
+import { NotificationHandler } from './notification-handler.js';
 import BASE_URL from '../config/api-root.js';
+import NotificationHandlerTypes from '../config/notification-handler-types.js';
 
 function ApiGateway() {
     async function request(endpoint, options = {}) {
@@ -34,9 +35,9 @@ function ApiGateway() {
             // Return parsed JSON data
             return await response.json();
         } catch (error) {
-            const status = error.status || 'Unknown';
+            const status = NotificationHandlerTypes.ERROR;
             const message = error.message || 'API Gateway Error';
-            ErrorHandler(status, message);
+            NotificationHandler(status, message);
             throw error; // Re-throw error for caller to handle
         }
     }
@@ -54,6 +55,7 @@ function ApiGateway() {
     }
 
     function put(endpoint, body, options = {}) {
+        console.log('2', body);
         return request(endpoint, {
             method: 'PUT',
             body: JSON.stringify(body),

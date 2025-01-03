@@ -3,6 +3,8 @@ import BookService from '../../domains/books/index.js';
 import { BookDTO } from '../../domains/books/core/dtos/book.dto.js';
 import StorePaths from '../../domains/books/core/constants/book-store-paths.constants';
 import { BookFiltersDTO } from '../../domains/books/core/dtos/book-filters.dto.js';
+import { NotificationHandler } from '../../api/notification-handler.js';
+import NotificationHandlerTypes from '../../config/notification-handler-types.js';
 
 const initialState = {
     items: <BookDTO[]>[],
@@ -37,8 +39,7 @@ const bookSearch = createSlice({
                 state.items = action.payload;
             })
             .addCase(GET_SEARCHED_BOOKS.rejected, (state, action) => {
-                console.log('Error');
-                console.log(state, action);
+                NotificationHandler(NotificationHandlerTypes.ERROR, 'Error searching Books');
             });
     },
 });

@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { BookDTO } from '../../domains/books/core/dtos/book.dto';
 import BookService from '../../domains/books/index';
 import StorePaths from '../../domains/books/core/constants/book-store-paths.constants';
+import { NotificationHandler } from '../../api/notification-handler';
+import NotificationHandlerTypes from '../../config/notification-handler-types';
 
 const initialState = {
     data: <BookDTO | {}>{},
@@ -55,8 +57,10 @@ const book = createSlice({
                 state.data = action.payload;
             })
             .addCase(GET_BOOK.rejected, (state, action) => {
-                console.log('Error getting Book');
-                console.log(state, action);
+                NotificationHandler(
+                    NotificationHandlerTypes.ERROR,
+                    'Error getting Book',
+                );
             });
 
         builder
@@ -64,11 +68,16 @@ const book = createSlice({
                 console.log('calling');
             })
             .addCase(CREATE_BOOK.fulfilled, (state, action) => {
-                console.log('Book created');
+                NotificationHandler(
+                    NotificationHandlerTypes.SUCSSESS,
+                    'Book created',
+                );
             })
             .addCase(CREATE_BOOK.rejected, (state, action) => {
-                console.log('Error getting Book');
-                console.log(state, action);
+                NotificationHandler(
+                    NotificationHandlerTypes.ERROR,
+                    'Error getting Book',
+                );
             });
 
         builder
@@ -76,11 +85,16 @@ const book = createSlice({
                 console.log('calling');
             })
             .addCase(UPDATE_BOOK.fulfilled, () => {
-                console.log('Book updated');
+                NotificationHandler(
+                    NotificationHandlerTypes.SUCSSESS,
+                    'Book updated',
+                );
             })
             .addCase(UPDATE_BOOK.rejected, (state, action) => {
-                console.log('Error updating Book');
-                console.log(state, action);
+                NotificationHandler(
+                    NotificationHandlerTypes.ERROR,
+                    'Error updating Book',
+                );
             });
 
         builder
@@ -88,11 +102,16 @@ const book = createSlice({
                 console.log('calling');
             })
             .addCase(DELETE_BOOK.fulfilled, () => {
-                console.log('Book deleted');
+                NotificationHandler(
+                    NotificationHandlerTypes.SUCSSESS,
+                    'Book deleted',
+                );
             })
             .addCase(DELETE_BOOK.rejected, (state, action) => {
-                console.log('Error deleting Book');
-                console.log(state, action);
+                NotificationHandler(
+                    NotificationHandlerTypes.ERROR,
+                    'Error deleting Book',
+                );
             });
     },
 });
