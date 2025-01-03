@@ -39,7 +39,6 @@ const bookSearch = createSlice({
                 state.items = action.payload;
             })
             .addCase(GET_SEARCHED_BOOKS.rejected, (state, action) => {
-                console.log(state, action);
                 ErrorHandler(EventHandlerTypes.ERROR, 'Error searching Books');
             });
     },

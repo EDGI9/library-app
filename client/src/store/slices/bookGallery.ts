@@ -3,8 +3,8 @@ import BookService from '../../domains/books/index.js';
 import { BookDTO } from '../../domains/books/core/dtos/book.dto.js';
 import StorePaths from '../../domains/books/core/constants/book-store-paths.constants.js';
 import { BookFiltersDTO } from '../../domains/books/core/dtos/book-filters.dto.js';
-import { ErrorHandler } from '../../api/error-handler.js';
-import EventHandlerTypes from '../../config/event-handler-types.js';
+import { NotificationHandler } from '../../api/notification-handler.js';
+import NotificationHandlerTypes from '../../config/notification-handler-types.js';
 
 const initialState = {
     items: <BookDTO[]>[],
@@ -50,8 +50,8 @@ const bookGallery = createSlice({
                 state.items = action.payload;
             })
             .addCase(GET_ALL_BOOKS.rejected, (state, action) => {
-                ErrorHandler(
-                    EventHandlerTypes.ERROR,
+                NotificationHandler(
+                    NotificationHandlerTypes.ERROR,
                     'Error gettting all Books',
                 );
             });
@@ -63,8 +63,8 @@ const bookGallery = createSlice({
                 state.filteredItems = action.payload;
             })
             .addCase(GET_FILTERED_BOOKS.rejected, (state, action) => {
-                ErrorHandler(
-                    EventHandlerTypes.ERROR,
+                NotificationHandler(
+                    NotificationHandlerTypes.ERROR,
                     'Error gettting filtered Books',
                 );
             });
