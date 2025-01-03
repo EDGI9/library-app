@@ -47,8 +47,6 @@ function ApiGateway() {
     }
 
     function post(endpoint, body, options = {}) {
-        console.log('1',body);
-        
         return request(endpoint, {
             method: 'POST',
             body: JSON.stringify(body),

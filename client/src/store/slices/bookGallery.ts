@@ -50,8 +50,10 @@ const bookGallery = createSlice({
                 state.items = action.payload;
             })
             .addCase(GET_ALL_BOOKS.rejected, (state, action) => {
-                console.log(state, action, 'here');
-                ErrorHandler(EventHandlerTypes.ERROR, 'Error gettting all Books');
+                ErrorHandler(
+                    EventHandlerTypes.ERROR,
+                    'Error gettting all Books',
+                );
             });
         builder
             .addCase(GET_FILTERED_BOOKS.pending, (state) => {
@@ -61,8 +63,10 @@ const bookGallery = createSlice({
                 state.filteredItems = action.payload;
             })
             .addCase(GET_FILTERED_BOOKS.rejected, (state, action) => {
-                console.log(state, action);
-                ErrorHandler(EventHandlerTypes.ERROR, 'Error gettting filtered Books');
+                ErrorHandler(
+                    EventHandlerTypes.ERROR,
+                    'Error gettting filtered Books',
+                );
             });
     },
 });

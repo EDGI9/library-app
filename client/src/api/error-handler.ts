@@ -5,6 +5,6 @@ export function ErrorHandler(
     type: string = EventHandlerTypes.ERROR,
     message: string,
 ) {
-    console.log(type, message);
+    //Triggers toast with specified Type and the message to display
     toast[type](message);
 }
