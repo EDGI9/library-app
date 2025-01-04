@@ -4,7 +4,7 @@ services:
     container_name: react-app
     build:
       context: ./client
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     stdin_open: true
     ports:
       - "5173:5173"
@@ -19,7 +19,7 @@ services:
     container_name: api-server
     build:
       context: ./server
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "5000:5000"
     environment:
