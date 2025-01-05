@@ -1,1 +1,2 @@
-export const BookDatabase = "books";
+export const DatabaseName = 'library';
+export const BookCollection = 'books';
