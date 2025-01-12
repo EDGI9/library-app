@@ -1,13 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
 import Settings from '../settings/index';
 import { BookController } from '../domains/book/adapters/driver/book-driver.adapter';
 import { setupDatabaseClient } from './database';
 
-dotenv.config({ path: '../.env' });
-const PORT = Settings.port || 5000;
+const PORT = Settings.port;
 const app = express();
 const router = express.Router();
 
