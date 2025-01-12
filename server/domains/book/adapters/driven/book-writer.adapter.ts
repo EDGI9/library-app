@@ -1,49 +1,54 @@
-import express from "express";
+import express from 'express';
 
-import database from "../../../../config/database";
+import { getDatabaseClient } from '../../../../config/database';
 
-import { ObjectId } from "mongodb";
-import { BookEntity } from "../../core/entities/book.entity";
-import { BookWriterDrivenPorts } from "../../ports/driven/book-writer-driven.ports";
-import { BookDatabase } from "../../core/constants/book-database.constants";
+import { ObjectId } from 'mongodb';
+import { BookEntity } from '../../core/entities/book.entity';
+import { BookWriterDrivenPorts } from '../../ports/driven/book-writer-driven.ports';
+import {
+    BookCollection,
+    DatabaseName,
+} from '../../core/constants/book-database.constants';
 
 export function BookWritterAdapter(): BookWriterDrivenPorts {
-
     async function create(book: BookEntity): Promise<void> {
         try {
-            let collection = await database.collection(BookDatabase);
+            let collection = await getDatabaseClient()
+                .db(DatabaseName)
+                .collection(BookCollection);
             await collection.insertOne(book);
-
-        } catch(error){
-            console.error("Error adding book", error);
+        } catch (error) {
+            console.error('Error adding book', error);
             return;
         }
     }
 
     async function update(id: string, book: BookEntity): Promise<void> {
         try {
-            let query = {_id: new ObjectId(id) };
+            let query = { _id: new ObjectId(id) };
             const updates = {
-                $set: book
-            }
-    
-            let collection = database.collection(BookDatabase);
-            collection.updateOne(query, updates);
+                $set: book,
+            };
 
+            let collection = getDatabaseClient()
+                .db(DatabaseName)
+                .collection(BookCollection);
+            collection.updateOne(query, updates);
         } catch (error) {
-            console.error("Error updating book", error);
+            console.error('Error updating book', error);
             return;
         }
     }
 
     async function remove(id: string): Promise<void> {
         try {
-            let query = {_id: new ObjectId(id) }
-            const collection = database.collection(BookDatabase);
+            let query = { _id: new ObjectId(id) };
+            const collection = getDatabaseClient()
+                .db(DatabaseName)
+                .collection(BookCollection);
             collection.deleteOne(query);
-    
         } catch (error) {
-            console.error("Error deleting book", error);
+            console.error('Error deleting book', error);
             return;
         }
     }
@@ -51,6 +56,6 @@ export function BookWritterAdapter(): BookWriterDrivenPorts {
     return {
         create,
         update,
-        remove
-    }
+        remove,
+    };
 }

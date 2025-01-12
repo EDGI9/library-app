@@ -1,20 +1,22 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
+import express from 'express';
+import cors from 'cors';
 
-import Settings from "../settings/index";
-import { BookController } from "../domains/book/adapters/driver/book-driver.adapter";
+import Settings from '../settings/index';
+import { BookController } from '../domains/book/adapters/driver/book-driver.adapter';
+import { setupDatabaseClient } from './database';
 
-dotenv.config({ path: "../.env" });
-const PORT = Settings.port || 5000;
+const PORT = Settings.port;
 const app = express();
 const router = express.Router();
 
 app.use(cors());
 app.use(express.json());
 
+//TODO: Create DatabaseControler using hexagonal arquitecture
+setupDatabaseClient();
+
 BookController(app, router);
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+    console.log(`Server listening on port ${PORT}`);
 });

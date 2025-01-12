@@ -149,8 +149,6 @@ describe('Test Book service', () => {
             expect(BookService.getByFilters).toBeDefined();
             expect(BookService.getByFilters).toBeInstanceOf(Function);
 
-            await BookService.create(Book);
-
             const spy = vi.spyOn(BookService, 'getByFilters');
             const result = await BookService.getByFilters(filters);
 
