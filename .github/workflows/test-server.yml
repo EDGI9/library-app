@@ -9,6 +9,8 @@ jobs:
   test:
     name: Server - Run Unit Tests
     runs-on: ubuntu-latest
+    env:
+      USE_MOCK_DATABASE: true
 
     steps:
       - name: Checkout code
@@ -25,6 +27,7 @@ jobs:
 
       - name: Run test script
         working-directory: ./server
-        env:
-          USE_MOCK_DATABASE: true
-        run: npm run test
+        run: | 
+          echo "is mock database ${{env.USE_MOCK_DATABASE}}"
+          echo "is mock database $USE_MOCK_DATABASE"
+          npm run test
