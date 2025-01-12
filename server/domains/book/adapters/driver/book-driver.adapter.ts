@@ -7,7 +7,12 @@ export function BookController(app: Express, router: Router): void {
     router.get(
         BookResourcePathConstants.ROOT,
         async (req: Request, res: Response): Promise<void> => {
-            res.json(await Books.getAll());
+            try {
+                res.json(await Books.getAll());
+            } catch (err) {
+                console.error(err);
+                res.status(500).send("Couldn't get Books");
+            }
         },
     );
 
@@ -35,7 +40,9 @@ export function BookController(app: Express, router: Router): void {
         BookResourcePathConstants.ROOT,
         async (req: Request, res: Response): Promise<void> => {
             try {
-                res.status(201).json(await Books.create(req.body));
+                await Books.create(req.body);
+
+                res.status(201).json({ message: 'Book created successfully' });
             } catch (err) {
                 console.error(err);
                 res.status(500).send("Couldn't create Book");
@@ -48,8 +55,9 @@ export function BookController(app: Express, router: Router): void {
         async (req: Request, res: Response): Promise<void> => {
             try {
                 const { id } = req.params;
+                await Books.update(id, req.body);
 
-                res.status(201).json(await Books.update(id, req.body));
+                res.status(201).json({ message: 'Book updated successfully' });
             } catch (err) {
                 console.error(err);
                 res.status(500).send("Couldn't update Book");
@@ -62,8 +70,9 @@ export function BookController(app: Express, router: Router): void {
         async (req: Request, res: Response): Promise<void> => {
             try {
                 const { id } = req.params;
+                await Books.remove(id);
 
-                res.status(201).json(await Books.remove(id));
+                res.status(201).json({ message: 'Book deleted successfully' });
             } catch (err) {
                 console.error(err);
                 res.status(500).send("Couldn't delete Book");

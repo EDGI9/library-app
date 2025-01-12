@@ -66,7 +66,7 @@ export function BookService(
 
     async function create(dto: BookEntity): Promise<void> {
         if (!dto.name.trim()) {
-            return;
+            throw Error;
         }
 
         return await writer.create(dto);
@@ -76,7 +76,7 @@ export function BookService(
         const entity = await reader.getById(id);
 
         if (!entity) {
-            return;
+            throw Error;
         }
 
         return await writer.update(id, dto);
@@ -86,7 +86,7 @@ export function BookService(
         const entity = await reader.getById(id);
 
         if (!entity) {
-            return;
+            throw Error;
         }
 
         return await writer.remove(id);
