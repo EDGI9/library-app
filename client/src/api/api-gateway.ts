@@ -55,7 +55,6 @@ function ApiGateway() {
     }
 
     function put(endpoint, body, options = {}) {
-        console.log('2', body);
         return request(endpoint, {
             method: 'PUT',
             body: JSON.stringify(body),
