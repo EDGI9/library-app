@@ -9,9 +9,7 @@ export function BookWriterAdapter(): BookDriverWriterPort {
             return;
         }
 
-        return await ApiGateway.post(booksApi.CREATE_BOOK, {
-            body: JSON.stringify(dto),
-        });
+        return await ApiGateway.post(booksApi.CREATE_BOOK, dto);
     }
 
     async function update(id: string, dto: BookEntity): Promise<void> {
@@ -19,9 +17,10 @@ export function BookWriterAdapter(): BookDriverWriterPort {
             return;
         }
 
-        return await ApiGateway.put(booksApi.UPDATE_BOOK.replace('{id}', id), {
-            body: JSON.stringify(dto),
-        });
+        return await ApiGateway.put(
+            booksApi.UPDATE_BOOK.replace('{id}', id),
+            dto,
+        );
     }
 
     async function remove(id: string): Promise<void> {
