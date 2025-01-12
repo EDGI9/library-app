@@ -2,16 +2,12 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import Settings from '../settings/index';
 
-
 //TODO: Create DatabaseControler using hexagonal arquitecture
 
 let client: MongoClient;
 let uri: string;
 
 export async function setupDatabaseClient() {
-    Settings.useMockDatabase = true;
-    console.log(Settings.useMockDatabase, 'Settings.useMockDatabase');
-
     if (Settings.useMockDatabase === true) {
         const mockMongoServer = await MongoMemoryServer.create();
         uri = mockMongoServer.getUri();
@@ -45,5 +41,6 @@ export function getDatabaseClient() {
 export async function closeDatabaseClient() {
     if (client) {
         await client.close();
+        console.log('Databse connection closed');
     }
 }

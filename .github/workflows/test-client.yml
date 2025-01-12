@@ -26,3 +26,5 @@ jobs:
       - name: Run test script
         working-directory: ./client
         run: npm run test
+        env:
+          USE_MOCK_DATABASE: true
