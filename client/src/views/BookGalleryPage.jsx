@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState, Suspense, lazy } from 'react';
+import { useEffect, useState, Suspense, lazy, startTransition } from 'react';
 
 import BookList from '../components/BookList.jsx';
 import Filters from '../components/Filters.jsx';
 const Loading = lazy(() => import('../components/Loading.jsx'));
 
 import { GET_FILTERED_BOOKS } from '../store/slices/bookGallery';
+import { DELETE_BOOK } from '../store/slices/book';
 
 const BookGalleryPage = () => {
     const dispatch = useDispatch();
@@ -24,6 +25,10 @@ const BookGalleryPage = () => {
         dispatch(GET_FILTERED_BOOKS(filters));
     };
 
+    const deleteBook = (id) => {
+        dispatch(DELETE_BOOK(id));
+    };
+
     const updateFilters = (value) => {
         return setFliters((prev) => {
             return { ...prev, ...value };
@@ -40,7 +45,10 @@ const BookGalleryPage = () => {
             </section>
             <section className="col-span-2">
                 <Suspense fallback={<Loading />}>
-                    <BookList books={books}></BookList>
+                    <BookList
+                        books={books}
+                        deleteBook={deleteBook}
+                    ></BookList>
                 </Suspense>
             </section>
         </div>
