@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { lazy } from 'react';
 const Loading = lazy(() => import('./Loading.jsx'));
 
 const AuthorCard = (props) => {
