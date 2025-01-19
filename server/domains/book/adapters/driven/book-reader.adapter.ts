@@ -1,5 +1,3 @@
-import express from 'express';
-
 import { getDatabaseClient } from '../../../../config/database';
 
 import { ObjectId } from 'mongodb';
