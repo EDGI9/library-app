@@ -27,6 +27,9 @@ export function BookService(
     }
 
     async function getById(id: string): Promise<BookDTO | {}> {
+        if (!id) {
+            throw Error;
+        }
         //@ts-ignore
         const entity: BookEntity = await reader.getById(id);
 
@@ -73,6 +76,9 @@ export function BookService(
     }
 
     async function update(id: string, dto: BookEntity) {
+        if (!id || !dto) {
+            throw Error;
+        }
         const entity = await reader.getById(id);
 
         if (!entity) {
@@ -83,6 +89,10 @@ export function BookService(
     }
 
     async function remove(id: string): Promise<void> {
+        if (!id) {
+            throw Error;
+        }
+
         const entity = await reader.getById(id);
 
         if (!entity) {
