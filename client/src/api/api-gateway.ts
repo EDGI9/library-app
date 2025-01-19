@@ -46,18 +46,18 @@ function ApiGateway() {
         return request(endpoint, { method: 'GET', ...options });
     }
 
-    function post(endpoint, payload, options = {}) {
+    function post(endpoint, body, options = {}) {
         return request(endpoint, {
             method: 'POST',
-            body: payload.body,
+            body: JSON.stringify(body),
             ...options,
         });
     }
 
-    function put(endpoint, payload, options = {}) {
+    function put(endpoint, body, options = {}) {
         return request(endpoint, {
             method: 'PUT',
-            body: payload.body,
+            body: JSON.stringify(body),
             ...options,
         });
     }
