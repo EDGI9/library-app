@@ -1,12 +1,12 @@
 import { BookDTO } from '../core/dtos/book.dto';
 import { BookFiltersDTO } from '../core/dtos/book-filters.dto';
-import { BookDriverReaderPort } from '../ports/driven/book-drive-reader.port';
-import { BookDriverWriterPort } from '../ports/driven/book-driven-writer.port';
+import { BookDrivenReaderPort } from '../ports/driven/book-driven-reader.port';
+import { BookDrivenWriterPort } from '../ports/driven/book-driven-writer.port';
 import { BookDriverPort } from '../ports/driver/book-driver.port';
 
 export default function BookService(
-    reader: BookDriverReaderPort,
-    writer: BookDriverWriterPort,
+    reader: BookDrivenReaderPort,
+    writer: BookDrivenWriterPort,
 ): BookDriverPort {
     async function getAll(): Promise<BookDTO[] | []> {
         const entities = await reader.getAll();
