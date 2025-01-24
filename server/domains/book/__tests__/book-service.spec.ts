@@ -33,7 +33,6 @@ describe('Test Book service', () => {
                         description: expect.any(String),
                         image: expect.any(String),
                         genre: expect.arrayContaining([expect.any(String)]),
-                        author: expect.any(String),
                     }),
                 ]),
             );
@@ -69,7 +68,6 @@ describe('Test Book service', () => {
                     description: expect.any(String),
                     image: expect.any(String),
                     genre: expect.arrayContaining([expect.any(String)]),
-                    author: expect.any(String),
                 }),
             );
         },
@@ -141,7 +139,6 @@ describe('Test Book service', () => {
             const filters: BookFiltersDTO = {
                 name: Book.name,
                 genre: Book.genre.join(),
-                author: Book.author,
             };
 
             expect(BookService.create).toBeDefined();
@@ -163,7 +160,6 @@ describe('Test Book service', () => {
                         description: Book.description,
                         image: Book.image,
                         genre: Book.genre,
-                        author: Book.author,
                     }),
                 ]),
             );

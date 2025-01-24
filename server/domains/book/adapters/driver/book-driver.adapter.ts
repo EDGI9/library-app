@@ -91,9 +91,6 @@ export function BookController(app: Express, router: Router): void {
                 if (req.query.genre) {
                     filters.genre = req.query.genre.toString();
                 }
-                if (req.query.author) {
-                    filters.author = req.query.author.toString();
-                }
 
                 const response = await Books.getByFilters(filters);
 

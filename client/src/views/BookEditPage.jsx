@@ -13,7 +13,6 @@ const BookEditPage = () => {
         description: '',
         genre: [],
         image: '',
-        author: '',
     });
     let [isNew, setIsNew] = useState(true);
     let [genreInputValue, setGenreInputValue] = useState('');
@@ -200,26 +199,6 @@ const BookEditPage = () => {
                                         onClick={(e) => removeItem(e, index)}
                                     />
                                 ))}
-                            </div>
-                        </div>
-                        <div>
-                            <label
-                                htmlFor="author"
-                                className="block text-sm font-medium leading-6 text-slate-900"
-                            >
-                                Author
-                            </label>
-                            <div className="mt-2">
-                                <div className="flex shadow-sm  sm:max-w-md">
-                                    <TextInput
-                                        name="author"
-                                        value={form?.author}
-                                        placeholder="Author"
-                                        onChange={(text) =>
-                                            updateForm({ author: text })
-                                        }
-                                    />
-                                </div>
                             </div>
                         </div>
                     </div>

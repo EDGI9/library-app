@@ -8,7 +8,6 @@ const bookGenerator = () => {
         description: faker.lorem.sentence(),
         image: faker.image.url(),
         genre: [faker.word.words(1), faker.word.words(1), faker.word.words(1)],
-        author: faker.word.words(2),
     };
 };
 

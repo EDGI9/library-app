@@ -83,12 +83,6 @@ export function BookReaderAdapter(): BookReaderDrivenPorts {
                 query.genre = { $in: filters.genre.split(',') };
             }
 
-            if (filters.author) {
-                query.author = {
-                    $regex: new RegExp(filters.author.toString(), 'i'),
-                };
-            }
-
             const results = await collection.find(query).toArray();
             //@ts-ignore
             const entries: BookEntity[] = results.map((doc) =>

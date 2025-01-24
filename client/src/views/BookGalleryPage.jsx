@@ -13,7 +13,6 @@ const BookGalleryPage = () => {
     const books = useSelector((state) => state.bookGallery.filteredItems);
     let [filters, setFliters] = useState({
         name: '',
-        author: '',
         genre: '',
     });
 

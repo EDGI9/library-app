@@ -11,6 +11,5 @@ export const bookHandler = (book: BookEntity) => {
         description: book.description.toString(),
         genre: book.genre,
         image: book.image.toString(),
-        author: book.author.toString(),
       }
 }

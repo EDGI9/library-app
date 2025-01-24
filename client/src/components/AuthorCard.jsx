@@ -5,7 +5,6 @@ const AuthorCard = (props) => {
     return (
         <div className="flex flex-col md:flex-row gap-6 justify-center">
             <div className="grow md:w-2/5 max-w-[600px]">
-                {/* Replace image with props.author.image */}
                 <img
                     src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                     height={600}
