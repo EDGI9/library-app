@@ -1,9 +1,9 @@
 import { BookEntity } from '../core/entities/book.entity';
-import { BookDriverWriterPort } from '../ports/driven/book-driven-writer.port';
+import { BookDrivenWriterPort } from '../ports/driven/book-driven-writer.port';
 import booksApi from '../core/constants/book-apis.constants';
 import ApiGateway from '../../../api/api-gateway';
 
-export function BookWriterAdapter(): BookDriverWriterPort {
+export function BookWriterAdapter(): BookDrivenWriterPort {
     async function create(dto: BookEntity): Promise<void> {
         if (!dto) {
             return;
