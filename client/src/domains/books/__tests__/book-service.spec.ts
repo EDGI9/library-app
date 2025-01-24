@@ -32,7 +32,6 @@ describe('Test Book service', () => {
                         description: expect.any(String),
                         image: expect.any(String),
                         genre: expect.arrayContaining([expect.any(String)]),
-                        author: expect.any(String),
                     }),
                 ]),
             );
@@ -69,7 +68,6 @@ describe('Test Book service', () => {
                     description: expect.any(String),
                     image: expect.any(String),
                     genre: expect.arrayContaining([expect.any(String)]),
-                    author: expect.any(String),
                 }),
             );
         },

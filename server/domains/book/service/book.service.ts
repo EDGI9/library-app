@@ -22,7 +22,6 @@ export function BookService(
             description: entity.description,
             genre: entity.genre,
             image: entity.image,
-            author: entity.author,
         }));
     }
 
@@ -43,7 +42,6 @@ export function BookService(
             description: entity.description,
             genre: entity.genre,
             image: entity.image,
-            author: entity.author,
         };
     }
 
@@ -63,7 +61,6 @@ export function BookService(
             description: entity.description,
             genre: entity.genre,
             image: entity.image,
-            author: entity.author,
         }));
     }
 

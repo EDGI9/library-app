@@ -4,8 +4,9 @@ import BookEditPage from '../views/BookEditPage.jsx';
 import BookDetailsPage from '../views/BookDetailsPage.jsx';
 import BookGalleryPage from '../views/BookGalleryPage.jsx';
 import Homepage from '../views/Homepage.jsx';
+import { isDevMode } from '../config/enviornment.js';
 
-const router = createBrowserRouter([
+let routes = [
     {
         path: '/',
         element: <App />,
@@ -27,26 +28,6 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: '/edit/:id',
-        element: <App />,
-        children: [
-            {
-                path: '/edit/:id',
-                element: <BookEditPage />,
-            },
-        ],
-    },
-    {
-        path: '/create',
-        element: <App />,
-        children: [
-            {
-                path: '/create',
-                element: <BookEditPage />,
-            },
-        ],
-    },
-    {
         path: '/gallery',
         element: <App />,
         children: [
@@ -56,6 +37,33 @@ const router = createBrowserRouter([
             },
         ],
     },
-]);
+];
+
+if (isDevMode) {
+    routes.push(
+        {
+            path: '/edit/:id',
+            element: <App />,
+            children: [
+                {
+                    path: '/edit/:id',
+                    element: <BookEditPage />,
+                },
+            ],
+        },
+        {
+            path: '/create',
+            element: <App />,
+            children: [
+                {
+                    path: '/create',
+                    element: <BookEditPage />,
+                },
+            ],
+        },
+    );
+}
+
+const router = createBrowserRouter(routes);
 
 export default router;

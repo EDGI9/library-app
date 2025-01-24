@@ -4,6 +4,7 @@ import BookService from '../../domains/books/index';
 import StorePaths from '../../domains/books/core/constants/book-store-paths.constants';
 import { NotificationHandler } from '../../api/notification-handler';
 import NotificationHandlerTypes from '../../config/notification-handler-types';
+import { isDevMode } from '../../config/enviornment';
 
 const initialState = {
     data: <BookDTO | {}>{},
@@ -25,6 +26,9 @@ export const GET_BOOK = createAsyncThunk(
 export const CREATE_BOOK = createAsyncThunk(
     StorePaths.CREATE_BOOK,
     async (dto: BookDTO): Promise<void> => {
+        if (!isDevMode) {
+            return;
+        }
         return await BookService.create(dto);
     },
 );
@@ -32,7 +36,10 @@ export const CREATE_BOOK = createAsyncThunk(
 //@ts-ignore
 export const UPDATE_BOOK = createAsyncThunk(
     StorePaths.UPDATE_BOOK,
-    async ({ id, dto }): Promise<void> => {
+    async ({ id: string, dto: BookDTO }): Promise<void> => {
+        if (!isDevMode) {
+            return;
+        }
         await BookService.update(id, dto);
     },
 );
@@ -40,6 +47,9 @@ export const UPDATE_BOOK = createAsyncThunk(
 export const DELETE_BOOK = createAsyncThunk(
     StorePaths.DELETE_BOOK,
     async (id: string): Promise<void> => {
+        if (!isDevMode) {
+            return;
+        }
         await BookService.remove(id);
     },
 );

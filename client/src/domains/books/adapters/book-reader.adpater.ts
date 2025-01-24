@@ -1,11 +1,11 @@
-import { BookDriverReaderPort } from '../ports/driven/book-drive-reader.port';
+import { BookDrivenReaderPort } from '../ports/driven/book-driven-reader.port';
 import { BookEntity } from '../core/entities/book.entity';
 import { BookFiltersEntity } from '../core/entities/book-filters.entity';
 
 import booksAPI from '../core/constants/book-apis.constants';
 import ApiGateway from '../../../api/api-gateway';
 
-export function BookReaderAdapter(): BookDriverReaderPort {
+export function BookReaderAdapter(): BookDrivenReaderPort {
     async function getAll(): Promise<BookEntity[] | null> {
         const response = await ApiGateway.get(booksAPI.GET_ALL_BOOKS);
 

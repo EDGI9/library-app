@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Book from './Book';
+import { isDevMode } from '../config/enviornment';
 
 export default function BookList(props) {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function BookList(props) {
                     book={book}
                     deleteBook={() => props.deleteBook(book.id)}
                     goToBook={() => goToBook(book.id)}
-                    isEditable={true}
+                    isEditable={isDevMode}
                     key={book.id}
                 />
             );
