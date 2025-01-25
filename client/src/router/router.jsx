@@ -1,9 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { lazy } from 'react';
 import App from '../App.jsx';
-import BookEditPage from '../views/BookEditPage.jsx';
-import BookDetailsPage from '../views/BookDetailsPage.jsx';
-import BookGalleryPage from '../views/BookGalleryPage.jsx';
-import Homepage from '../views/Homepage.jsx';
+const BookGalleryPage = lazy(() => import('../views/BookGalleryPage.jsx'));
+const BookDetailsPage = lazy(() => import('../views/BookDetailsPage.jsx'));
+const BookEditPage = lazy(() => import('../views/BookEditPage.jsx'));
+const Homepage = lazy(() => import('../views/Homepage.jsx'));
+
 import { isDevMode } from '../config/enviornment.js';
 
 let routes = [

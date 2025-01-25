@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import Book from './Book';
+import { lazy } from 'react';
+const Book = lazy(() => import('./Book.jsx'));
 import { isDevMode } from '../config/enviornment';
 
 export default function BookList(props) {

@@ -1,6 +1,3 @@
-import { lazy } from 'react';
-const Loading = lazy(() => import('./Loading.jsx'));
-
 const AuthorCard = (props) => {
     return (
         <div className="flex flex-col md:flex-row gap-6 justify-center">
