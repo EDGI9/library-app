@@ -7,34 +7,35 @@ const BookEditPage = lazy(() => import('../views/BookEditPage.jsx'));
 const Homepage = lazy(() => import('../views/Homepage.jsx'));
 
 import { isDevMode } from '../config/enviornment.js';
+import { routes } from '../config/routes.js';
 
-let routes = [
+let routerRoutes = [
     {
-        path: '/',
+        path: `${routes.HOMEPAGE}`,
         element: <App />,
         children: [
             {
-                path: '/',
+                path: `${routes.HOMEPAGE}`,
                 element: <Homepage />,
             },
         ],
     },
     {
-        path: '/view/:id',
+        path: `${routes.BOOK_DETAILS}/:id`,
         element: <App />,
         children: [
             {
-                path: '/view/:id',
+                path: `${routes.BOOK_DETAILS}/:id`,
                 element: <BookDetailsPage />,
             },
         ],
     },
     {
-        path: '/gallery',
+        path: `${routes.GALLERY}`,
         element: <App />,
         children: [
             {
-                path: '/gallery',
+                path: `${routes.GALLERY}`,
                 element: <BookGalleryPage />,
             },
         ],
@@ -42,23 +43,23 @@ let routes = [
 ];
 
 if (isDevMode) {
-    routes.push(
+    routerRoutes.push(
         {
-            path: '/edit/:id',
+            path: `${routes.EDIT_BOOK}/:id`,
             element: <App />,
             children: [
                 {
-                    path: '/edit/:id',
+                    path: `${routes.EDIT_BOOK}/:id`,
                     element: <BookEditPage />,
                 },
             ],
         },
         {
-            path: '/create',
+            path: `${routes.CREATE_BOOK}`,
             element: <App />,
             children: [
                 {
-                    path: '/create',
+                    path: `${routes.CREATE_BOOK}`,
                     element: <BookEditPage />,
                 },
             ],
@@ -66,6 +67,6 @@ if (isDevMode) {
     );
 }
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routerRoutes);
 
 export default router;
