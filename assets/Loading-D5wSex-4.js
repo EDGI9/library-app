@@ -1,0 +1,1 @@
+import{j as t}from"./index-Dd1i-sMI.js";function s(a){return t.jsx("div",{"data-testid":"qa-loading",className:"flex flex-column justify-center p-3 bg-white/30",children:t.jsx("p",{className:"text-sm font-bold",children:"Loading..."})})}export{s as default};
