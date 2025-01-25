@@ -9,6 +9,7 @@ import {
     CLEAR_SEARCHED_BOOKS,
 } from '../store/slices/bookSearch';
 import { isDevMode } from '../config/enviornment';
+import { routes } from '../config/routes';
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Navbar = () => {
         <div data-testid="qa-navbar">
             <nav className="flex justify-between items-center mb-6 p-6 gap-8 max-h-[90px]">
                 <div className="flex-grow">
-                    <NavLink to="/">
+                    <NavLink to={routes.HOMEPAGE}>
                         <img
                             alt="Logo"
                             className="h-10 inline"
@@ -54,7 +55,7 @@ const Navbar = () => {
 
                 <NavLink
                     className="inline-flex items-center justify-center text-primary font-bold hover:border-b-2 border-primary px-3"
-                    to="/gallery"
+                    to={routes.GALLERY}
                 >
                     Gallery
                 </NavLink>
@@ -62,7 +63,7 @@ const Navbar = () => {
                 {isDevMode ?? (
                     <NavLink
                         className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-primary text-white hover:text-primary hover:bg-slate-100 h-9 rounded-md px-3"
-                        to="/create"
+                        to={routes.CREATE_BOOK}
                     >
                         Add Book
                     </NavLink>

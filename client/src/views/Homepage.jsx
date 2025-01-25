@@ -12,7 +12,6 @@ import homepageImage from '../assets/library-homepage-image.webp';
 import book from '../assets/open-book.webp';
 import user from '../assets/user.webp';
 import review from '../assets/review.webp';
-import '../utils/tailwind-animation.js';
 
 import { GET_ALL_BOOKS } from '../store/slices/bookGallery';
 import { DELETE_BOOK } from '../store/slices/book';
