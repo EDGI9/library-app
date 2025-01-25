@@ -1,6 +1,3 @@
-import { lazy } from 'react';
-const Loading = lazy(() => import('./Loading.jsx'));
-
 const Counter = (props) => {
     return (
         <div

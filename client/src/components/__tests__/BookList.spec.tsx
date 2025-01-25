@@ -6,9 +6,10 @@ import {
     RenderResult,
 } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import BookList from '../BookList.jsx';
+import Loading from '../Loading.jsx';
 
 import mockBookList from '../../__mocks__/components/BookList.js';
 
@@ -22,10 +23,12 @@ describe('BookList component', () => {
         mockGoToBook = vi.fn();
         component = render(
             <MemoryRouter>
-                <BookList
-                    books={bookList}
-                    goToBook={mockGoToBook}
-                />
+                <Suspense fallback={<Loading />}>
+                    <BookList
+                        books={bookList}
+                        goToBook={mockGoToBook}
+                    />
+                </Suspense>
             </MemoryRouter>,
         );
     });
@@ -34,15 +37,16 @@ describe('BookList component', () => {
         cleanup();
     });
 
-    it('Renders Component', () => {
-        bookListElement = component.getByTestId('qa-book-list');
+    it('Renders Component', async () => {
+        bookListElement = await component.findByTestId('qa-book-list');
         expect(bookListElement).toBeTruthy();
     });
 
     // Can't seem to reach the book component to trigger the click
-    it.skip('Book is clickable', () => {
-        const firstBookClickableDiv =
-            component.getAllByTestId('qa-book_clickable')[0];
+    it.skip('Book is clickable', async () => {
+        const firstBookClickableDiv = await component.findAllByTestId(
+            'qa-book_clickable',
+        )[0];
         fireEvent.click(firstBookClickableDiv);
 
         expect(mockGoToBook).toHaveBeenCalledWith(bookList[0].id);

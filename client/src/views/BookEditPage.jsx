@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import TextInput from '../components/TextInput.jsx';
-import Pill from '../components/Pill.jsx';
+const TextInput = lazy(() => import('../components/TextInput.jsx'));
+const Pill = lazy(() => import('../components/Pill.jsx'));
 
 import { GET_BOOK, CREATE_BOOK, UPDATE_BOOK } from '../store/slices/book';
 

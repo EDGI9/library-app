@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, Suspense, lazy, startTransition } from 'react';
 
-import BookList from '../components/BookList.jsx';
-import Filters from '../components/Filters.jsx';
+const BookList = lazy(() => import('../components/BookList.jsx'));
+const Filters = lazy(() => import('../components/Filters.jsx'));
 const Loading = lazy(() => import('../components/Loading.jsx'));
 
 import { GET_FILTERED_BOOKS } from '../store/slices/bookGallery';
