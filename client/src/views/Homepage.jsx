@@ -15,6 +15,7 @@ import review from '../assets/review.webp';
 
 import { GET_ALL_BOOKS } from '../store/slices/bookGallery';
 import { DELETE_BOOK } from '../store/slices/book';
+import { routes } from '../config/routes.js';
 
 const Homepage = () => {
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const Homepage = () => {
     }
 
     function goToBook(id) {
-        navigate(`/view/${id}`);
+        navigate(`${routes.BOOK_DETAILS}/${id}`);
     }
 
     return (
@@ -112,12 +113,7 @@ const Homepage = () => {
             </section>
             <section className="row-start-3 col-span-12  mb-48">
                 <div className="flex flex-col md:flex-row items-center justify-center row-start-3 gap-4">
-                    <NavLink to="/gallery">
-                        <Counter
-                            icon={book}
-                            number={books.length}
-                            text="Total Books"
-                        ></Counter>
+                    <NavLink to={routes.GALLERY}>
                     </NavLink>
                     <Counter
                         icon={user}

@@ -2,6 +2,7 @@ import { useEffect, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_BOOK } from '../store/slices/book';
+import { routes } from '../config/routes.js';
 
 const Pill = lazy(() => import('../components/Pill.jsx'));
 const Loading = lazy(() => import('../components/Loading.jsx'));
@@ -19,7 +20,7 @@ const BookDetailsPage = () => {
 
             if (!book) {
                 console.warn(`Book with id ${id} not found`);
-                navigate('/');
+                navigate(routes.HOMEPAGE);
                 return;
             }
         }

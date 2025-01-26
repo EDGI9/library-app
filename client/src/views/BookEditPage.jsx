@@ -1,11 +1,12 @@
 import { useState, useEffect, lazy } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const TextInput = lazy(() => import('../components/TextInput.jsx'));
 const Pill = lazy(() => import('../components/Pill.jsx'));
 
 import { GET_BOOK, CREATE_BOOK, UPDATE_BOOK } from '../store/slices/book';
+import { routes } from '../config/routes.js';
 
 const BookEditPage = () => {
     let [form, setForm] = useState({
@@ -31,7 +32,7 @@ const BookEditPage = () => {
 
             if (!book) {
                 console.warn(`Book with id ${id} not found`);
-                navigate('/');
+                navigate(routes.HOMEPAGE);
                 return;
             }
             setForm(book);
@@ -76,7 +77,7 @@ const BookEditPage = () => {
             );
         } finally {
             setForm({ name: '', description: '', genre: [], image: '' });
-            navigate('/');
+            navigate(routes.HOMEPAGE);
         }
     };
 
