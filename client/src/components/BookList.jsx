@@ -2,24 +2,28 @@ import { useNavigate } from 'react-router-dom';
 import { lazy } from 'react';
 const Book = lazy(() => import('./Book.jsx'));
 import { isDevMode } from '../config/enviornment';
+import { motion, transform } from 'motion/react';
+import { routes } from '../config/routes.js';
 
 export default function BookList(props) {
     const navigate = useNavigate();
 
     function goToBook(id) {
-        navigate(`/view/${id}`);
+        navigate(`${routes.BOOK_DETAILS}/${id}`);
     }
 
     function bookList() {
         return props.books?.map((book) => {
             return (
-                <Book
-                    book={book}
-                    deleteBook={() => props.deleteBook(book.id)}
-                    goToBook={() => goToBook(book.id)}
-                    isEditable={isDevMode}
-                    key={book.id}
-                />
+                <motion.div whileHover={{ scale: 1.1 }}>
+                    <Book
+                        book={book}
+                        deleteBook={() => props.deleteBook(book.id)}
+                        goToBook={() => goToBook(book.id)}
+                        isEditable={isDevMode}
+                        key={book.id}
+                    />
+                </motion.div>
             );
         });
     }
