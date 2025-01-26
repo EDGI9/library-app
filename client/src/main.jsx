@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import router from './router/router.jsx';
 import store from './store/index.ts';
 import './index.css';
-import './utils/tailwind-animation.js';
 
 const Loading = React.lazy(() => import('./components/Loading.jsx'));
 

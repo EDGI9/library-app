@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, lazy } from 'react';
-import { faker } from '@faker-js/faker';
+import { simpleFaker } from '@faker-js/faker';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { motion } from 'motion/react';
 
 const BookList = lazy(() => import('../components/BookList.jsx'));
 const Counter = lazy(() => import('../components/Counter.jsx'));
@@ -15,6 +16,7 @@ import review from '../assets/review.webp';
 
 import { GET_ALL_BOOKS } from '../store/slices/bookGallery';
 import { DELETE_BOOK } from '../store/slices/book';
+import { routes } from '../config/routes.js';
 
 const Homepage = () => {
     const dispatch = useDispatch();
@@ -37,7 +39,7 @@ const Homepage = () => {
     }
 
     function goToBook(id) {
-        navigate(`/view/${id}`);
+        navigate(`${routes.BOOK_DETAILS}/${id}`);
     }
 
     return (
@@ -46,25 +48,51 @@ const Homepage = () => {
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 col-start-2 col-span-10">
                     <div>
                         <h1 className="flex flex-col lg:flex-row lg:space-x-3 text-5xl">
-                            <span
-                                className="transform transition-all opacity-0 translate-y-12 ease-out duration-700 delay-200"
-                                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+                            <motion.span
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{
+                                    y: 0,
+                                    transition: {
+                                        duration: 0.7,
+                                        delay: 0.2,
+                                        ease: 'easeOut',
+                                    },
+                                    opacity: 1,
+                                }}
                             >
                                 The
-                            </span>
-                            <b
-                                className="text-primary transform transition-all opacity-0 -translate-y-12 ease-out duration-700 delay-500"
-                                data-replace='{ "-translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+                            </motion.span>
+                            <motion.span
+                                className="text-primary font-bold"
+                                initial={{ y: -20, opacity: 0 }}
+                                animate={{
+                                    y: 0,
+                                    transition: {
+                                        duration: 0.7,
+                                        delay: 0.5,
+                                        ease: 'easeOut',
+                                    },
+                                    opacity: 1,
+                                }}
                             >
                                 Bookshelf Bliss
-                            </b>
+                            </motion.span>
                         </h1>
-                        <p
-                            className="text-lg transform transition-all opacity-0 -translate-x-12 ease-out duration-700 delay-1000 text-sm text-slate-400"
-                            data-replace='{ "-translate-x-12": "translate-x-0", "opacity-0": "opacity-100" }'
+                        <motion.p
+                            className="text-lg text-sm text-slate-400"
+                            initial={{ x: -20, opacity: 0 }}
+                            animate={{
+                                x: 0,
+                                transition: {
+                                    duration: 0.7,
+                                    delay: 1,
+                                    ease: 'easeOut',
+                                },
+                                opacity: 1,
+                            }}
                         >
                             Browse for books at anytime
-                        </p>
+                        </motion.p>
                     </div>
                     <div className="hidden md:flex flex-col ">
                         <img
@@ -92,10 +120,14 @@ const Homepage = () => {
                             <b className="text-primary">This Week</b>
                         </h1>
                         <div className="flex items-center justify-start row-start-2 gap-4 mb-10">
-                            <BookList
-                                books={books.slice(0, 4)}
-                                deleteBook={deleteBook}
-                            ></BookList>
+                            {books.length > 0 ? (
+                                <BookList
+                                    books={books.slice(0, 4)}
+                                    deleteBook={deleteBook}
+                                ></BookList>
+                            ) : (
+                                <p>No Books available</p>
+                            )}
                         </div>
                     </section>
                     <section className="row-start-1 col-start-8 col-span-4">
@@ -103,39 +135,99 @@ const Homepage = () => {
                             <span>Recomendation</span>
                             <b className="text-primary">For You</b>
                         </h1>
-                        <Book
-                            book={recomendedBook}
-                            goToBook={() => goToBook(recomendedBook.id)}
-                        ></Book>
+                        {books.length > 0 ? (
+                            <motion.div whileHover={{ scale: 1.1 }}>
+                                <Book
+                                    book={recomendedBook}
+                                    goToBook={() => goToBook(recomendedBook.id)}
+                                ></Book>
+                            </motion.div>
+                        ) : (
+                            <p>No Recomended book available</p>
+                        )}
                     </section>
                 </div>
             </section>
             <section className="row-start-3 col-span-12  mb-48">
                 <div className="flex flex-col md:flex-row items-center justify-center row-start-3 gap-4">
-                    <NavLink to="/gallery">
-                        <Counter
-                            icon={book}
-                            number={books.length}
-                            text="Total Books"
-                        ></Counter>
+                    <NavLink to={routes.GALLERY}>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            transition={{
+                                duration: 0.3,
+                                delay: 0.4,
+                                ease: 'easeOut',
+                            }}
+                            whileInView={{
+                                scale: [0.9, 1.2, 1],
+                                opacity: 1,
+                            }}
+                            viewport={{ once: true, amount: 0.5 }}
+                        >
+                            <Counter
+                                icon={book}
+                                number={books.length}
+                                text="Total Books"
+                            ></Counter>
+                        </motion.div>
                     </NavLink>
-                    <Counter
-                        icon={user}
-                        number="2"
-                        text="Authors"
-                    ></Counter>
-                    <Counter
-                        icon={review}
-                        number={`${faker.number.float({
-                            multipleOf: 0.25,
-                            min: 0,
-                            max: 10,
-                        })}k`}
-                        text="Reviews"
-                    ></Counter>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        transition={{
+                            duration: 0.3,
+                            delay: 0.5,
+                            ease: 'easeOut',
+                        }}
+                        whileInView={{
+                            scale: [0.9, 1.2, 1],
+                            opacity: 1,
+                        }}
+                        viewport={{ once: true, amount: 0.5 }}
+                    >
+                        <Counter
+                            icon={user}
+                            number="2"
+                            text="Authors"
+                        ></Counter>
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        transition={{
+                            duration: 0.3,
+                            delay: 0.6,
+                            ease: 'easeOut',
+                        }}
+                        whileInView={{
+                            scale: [0.9, 1.2, 1],
+                            opacity: 1,
+                        }}
+                        viewport={{ once: true, amount: 0.5 }}
+                    >
+                        <Counter
+                            icon={review}
+                            number={`${simpleFaker.number.float({
+                                multipleOf: 0.25,
+                                min: 0,
+                                max: 10,
+                            })}k`}
+                            text="Reviews"
+                        ></Counter>
+                    </motion.div>
                 </div>
             </section>
-            <section className="md:grid grid-rows-1 grid-cols-12 row-start-4 col-span-12 min-h-[400px] bg-white/50 backdrop-blur-md">
+            <motion.section
+                initial={{ opacity: 0 }}
+                transition={{
+                    duration: 0.3,
+                    delay: 0.6,
+                    ease: 'easeOut',
+                }}
+                whileInView={{
+                    opacity: 1,
+                }}
+                viewport={{ once: true, amount: 0.5 }}
+                className="md:grid grid-rows-1 grid-cols-12 row-start-4 col-span-12 min-h-[400px] bg-white/50 backdrop-blur-md"
+            >
                 <div className="col-start-2 col-span-10">
                     <h1 className="flex text-4xl mb-7 gap-3">
                         <span>Author</span>
@@ -143,7 +235,7 @@ const Homepage = () => {
                     </h1>
                     <AuthorCard />
                 </div>
-            </section>
+            </motion.section>
         </div>
     );
 };
