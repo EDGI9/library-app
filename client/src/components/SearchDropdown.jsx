@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useEffect, useState, useCallback, useRef } from 'react';
 
 import { Hooks } from '../composables/hooks/index.ts';
+import TextInput from './TextInput.jsx';
 
 const SearchDropdown = (props) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -28,8 +29,8 @@ const SearchDropdown = (props) => {
         handleSearch(searchTerm);
     }, [searchTerm, handleSearch]);
 
-    const handleInputChange = (e) => {
-        setSearchTerm(e.target.value);
+    const handleInputChange = (value) => {
+        setSearchTerm(value);
     };
 
     function ListItems() {
@@ -81,13 +82,12 @@ const SearchDropdown = (props) => {
                 className="w-full max-w-2xl"
             >
                 <div className="relative">
-                    <input
+                    <TextInput
                         data-testid="qa-search-dropdown-input"
-                        type="text"
                         value={searchTerm}
-                        onChange={handleInputChange}
-                        className="w-full px-5 py-2 pr-20 text-base bg-white border border-gray-200 rounded-md focus:outline-none focus:border-gray-300 shadow-md hover:shadow-lg transition-shadow duration-200"
                         placeholder="Search for book name"
+                        onChange={(value) => handleInputChange(value)}
+                        className="w-full px-5 py-2 pr-20 text-base bg-white border border-gray-200 rounded-md focus:outline-none focus:border-gray-300 shadow-md hover:shadow-lg transition-shadow duration-200"
                     />
                 </div>
             </form>

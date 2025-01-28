@@ -59,8 +59,8 @@ describe('SearchDropdown component', () => {
         });
 
         // Event not being picked up
-        expect(props.onInput).toHaveBeenCalledWith(nextText);
         expect(props.onInput).toHaveBeenCalledOnce();
+        expect(props.onInput).toHaveBeenCalledWith(nextText);
     });
 
     it('Emits onClicoutside Event ', async () => {
