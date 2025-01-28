@@ -7,6 +7,7 @@ import {
 } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
 import React from 'react';
+import DOMPurify from 'dompurify';
 
 import TextInput from '../TextInput.jsx';
 
@@ -43,7 +44,7 @@ describe('TextInput component', () => {
         expect(value).toEqual(props.value);
     });
 
-    it('Component is emits change', async () => {
+    it('Component emits change', async () => {
         const newValue = faker.word.words(1);
         const value = textInput.value;
 
@@ -53,5 +54,18 @@ describe('TextInput component', () => {
 
         expect(props.onChange).toHaveBeenCalledOnce();
         expect(props.onChange).toHaveBeenCalledWith(newValue);
+    });
+
+    it('Input content is sanitized', async () => {
+        const dirtyText = '<script>test</script>';
+        const cleanComparisonText = DOMPurify.sanitize(dirtyText);
+
+        const value = textInput.value;
+
+        await fireEvent.change(textInput, { target: { value: dirtyText } });
+
+        expect(props.onChange).toHaveBeenCalled();
+        expect(props.onChange).toHaveBeenCalledWith(cleanComparisonText);
+        expect(value).not.toEqual(cleanComparisonText);
     });
 });
