@@ -1,10 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import App from '../App.jsx';
 const BookGalleryPage = lazy(() => import('../views/BookGalleryPage.jsx'));
 const BookDetailsPage = lazy(() => import('../views/BookDetailsPage.jsx'));
 const BookEditPage = lazy(() => import('../views/BookEditPage.jsx'));
 const Homepage = lazy(() => import('../views/Homepage.jsx'));
+const ErrorFallback = lazy(() => import('../components/ErrorFallback.jsx'));
 
 import { isDevMode } from '../config/enviornment.js';
 import { routes } from '../config/routes.js';
@@ -16,7 +18,11 @@ let routerRoutes = [
         children: [
             {
                 path: `${routes.HOMEPAGE}`,
-                element: <Homepage />,
+                element: (
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <Homepage />
+                    </ErrorBoundary>
+                ),
             },
         ],
     },
@@ -26,7 +32,11 @@ let routerRoutes = [
         children: [
             {
                 path: `${routes.BOOK_DETAILS}/:id`,
-                element: <BookDetailsPage />,
+                element: (
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <BookDetailsPage />
+                    </ErrorBoundary>
+                ),
             },
         ],
     },
@@ -36,7 +46,11 @@ let routerRoutes = [
         children: [
             {
                 path: `${routes.GALLERY}`,
-                element: <BookGalleryPage />,
+                element: (
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <BookGalleryPage />
+                    </ErrorBoundary>
+                ),
             },
         ],
     },
@@ -50,7 +64,11 @@ if (isDevMode) {
             children: [
                 {
                     path: `${routes.EDIT_BOOK}/:id`,
-                    element: <BookEditPage />,
+                    element: (
+                        <ErrorBoundary FallbackComponent={ErrorFallback}>
+                            <BookEditPage />
+                        </ErrorBoundary>
+                    ),
                 },
             ],
         },
@@ -60,7 +78,11 @@ if (isDevMode) {
             children: [
                 {
                     path: `${routes.CREATE_BOOK}`,
-                    element: <BookEditPage />,
+                    element: (
+                        <ErrorBoundary FallbackComponent={ErrorFallback}>
+                            <BookEditPage />
+                        </ErrorBoundary>
+                    ),
                 },
             ],
         },

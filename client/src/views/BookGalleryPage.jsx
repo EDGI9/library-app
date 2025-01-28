@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState, Suspense, lazy, startTransition } from 'react';
+import { useEffect, useState, Suspense, lazy } from 'react';
 
 const BookList = lazy(() => import('../components/BookList.jsx'));
 const Filters = lazy(() => import('../components/Filters.jsx'));
