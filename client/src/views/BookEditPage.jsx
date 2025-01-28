@@ -1,6 +1,7 @@
 import { useState, useEffect, lazy } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import DOMPurify from 'dompurify';
 
 const TextInput = lazy(() => import('../components/TextInput.jsx'));
 const Pill = lazy(() => import('../components/Pill.jsx'));
@@ -137,7 +138,9 @@ const BookEditPage = () => {
                                         value={form?.description}
                                         onChange={(e) =>
                                             updateForm({
-                                                description: e.target.value,
+                                                description: DOMPurify.sanitize(
+                                                    e.target.value,
+                                                ),
                                             })
                                         }
                                     ></textarea>
