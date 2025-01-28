@@ -4,7 +4,6 @@ import {
     cleanup,
     RenderResult,
     fireEvent,
-    screen,
 } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
 import React from 'react';
