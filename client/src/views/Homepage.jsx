@@ -79,7 +79,7 @@ const Homepage = () => {
                             </motion.span>
                         </h1>
                         <motion.p
-                            className="text-lg text-sm text-slate-400"
+                            className="text-sm text-slate-400"
                             initial={{ x: -20, opacity: 0 }}
                             animate={{
                                 x: 0,

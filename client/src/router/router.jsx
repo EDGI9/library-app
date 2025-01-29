@@ -6,6 +6,7 @@ const BookGalleryPage = lazy(() => import('../views/BookGalleryPage.jsx'));
 const BookDetailsPage = lazy(() => import('../views/BookDetailsPage.jsx'));
 const BookEditPage = lazy(() => import('../views/BookEditPage.jsx'));
 const Homepage = lazy(() => import('../views/Homepage.jsx'));
+const MissingPage = lazy(() => import('../views/MissingPage.jsx'));
 const ErrorFallback = lazy(() => import('../components/ErrorFallback.jsx'));
 
 import { isDevMode } from '../config/enviornment.js';
@@ -49,6 +50,20 @@ let routerRoutes = [
                 element: (
                     <ErrorBoundary FallbackComponent={ErrorFallback}>
                         <BookGalleryPage />
+                    </ErrorBoundary>
+                ),
+            },
+        ],
+    },
+    {
+        path: `${routes.OTHERS}`,
+        element: <App />,
+        children: [
+            {
+                path: `${routes.OTHERS}`,
+                element: (
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <MissingPage />
                     </ErrorBoundary>
                 ),
             },
