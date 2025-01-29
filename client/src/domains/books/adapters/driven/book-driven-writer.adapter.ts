@@ -1,9 +1,9 @@
-import { BookEntity } from '../core/entities/book.entity';
-import { BookDrivenWriterPort } from '../ports/driven/book-driven-writer.port';
-import booksApi from '../core/constants/book-apis.constants';
-import ApiGateway from '../../../api/api-gateway';
+import { BookEntity } from '../../core/entities/book.entity';
+import { BookDrivenWriterPort } from '../../ports/driven/book-driven-writer.port';
+import booksApi from '../../core/constants/book-apis.constants';
+import ApiGateway from '../../../../api/api-gateway';
 
-export function BookWriterAdapter(): BookDrivenWriterPort {
+export function BookDrivenWriterAdapter(): BookDrivenWriterPort {
     async function create(dto: BookEntity): Promise<void> {
         if (!dto) {
             return;

@@ -1,11 +1,11 @@
-import { BookDrivenReaderPort } from '../ports/driven/book-driven-reader.port';
-import { BookEntity } from '../core/entities/book.entity';
-import { BookFiltersEntity } from '../core/entities/book-filters.entity';
+import { BookDrivenReaderPort } from '../../ports/driven/book-driven-reader.port';
+import { BookEntity } from '../../core/entities/book.entity';
+import { BookFiltersEntity } from '../../core/entities/book-filters.entity';
 
-import booksAPI from '../core/constants/book-apis.constants';
-import ApiGateway from '../../../api/api-gateway';
+import booksAPI from '../../core/constants/book-apis.constants';
+import ApiGateway from '../../../../api/api-gateway';
 
-export function BookReaderAdapter(): BookDrivenReaderPort {
+export function BookDrivenReaderAdapter(): BookDrivenReaderPort {
     async function getAll(): Promise<BookEntity[] | null> {
         const response = await ApiGateway.get(booksAPI.GET_ALL_BOOKS);
 
@@ -20,6 +20,7 @@ export function BookReaderAdapter(): BookDrivenReaderPort {
         if (!id) {
             return null;
         }
+        console.log(id);
 
         const response = await ApiGateway.get(
             booksAPI.GET_BOOK.replace('{id}', id),
