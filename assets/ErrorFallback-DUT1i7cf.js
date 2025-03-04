@@ -1,1 +1,0 @@
-import{j as r}from"./index-Db57-HDL.js";const o=({error:e,resetErrorBoundary:n})=>r.jsxs("div",{role:"alert",children:[r.jsx("p",{children:"Something went wrong:"}),r.jsx("pre",{children:e.message}),r.jsx("button",{onClick:n,children:"Try again"})]});export{o as default};
