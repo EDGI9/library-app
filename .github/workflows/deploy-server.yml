@@ -26,6 +26,10 @@ jobs:
       - name: Build the application
         run: npm run build
         working-directory: ./server
+        env:
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          USE_MOCK_DATABASE: ${{ secrets.USE_MOCK_DATABASE }}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
 
   deploy:
     name: Deploy to Vercel
@@ -47,3 +51,6 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          USE_MOCK_DATABASE: ${{ secrets.USE_MOCK_DATABASE }}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
