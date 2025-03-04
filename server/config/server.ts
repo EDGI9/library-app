@@ -9,7 +9,7 @@ const PORT = Settings.port;
 const app = express();
 const router = express.Router();
 
-app.use(cors());
+app.use(cors({ origin: Settings.origin }));
 app.use(express.json());
 
 //TODO: Create DatabaseControler using hexagonal arquitecture
