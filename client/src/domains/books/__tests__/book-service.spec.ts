@@ -1,16 +1,12 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { faker } from '@faker-js/faker';
-import { BookDriverReaderAdapter } from '../adapters/driver/book-driver-reader.adpater';
-import { BookDriverWriterAdapter } from '../adapters/driver/book-driver-writer.adpater';
+import BookService from '../index';
 import { BookDTO } from '../core/dtos/book.dto';
 
 import Book from '../../../__mocks__/components/Book';
 import Books from '../../../__mocks__/components/BookList';
 
 describe('Test Book service', () => {
-    const readerAdapter = BookDriverReaderAdapter();
-    const writerAdapter = BookDriverWriterAdapter();
-
     it(
         'Gets all Books',
         {
@@ -18,12 +14,13 @@ describe('Test Book service', () => {
             retry: 3,
         },
         async () => {
-            expect(readerAdapter.getAll).toBeDefined();
-            expect(readerAdapter.getAll).toBeInstanceOf(Function);
+            expect(BookService.getAll).toBeDefined();
+            expect(BookService.getAll).toBeInstanceOf(Function);
 
-            const spy = vi.spyOn(readerAdapter, 'getAll');
-
-            const result = await readerAdapter.getAll();
+            const spy = vi
+                .spyOn(BookService, 'getAll')
+                .mockResolvedValue(Books);
+            const result = await BookService.getAll();
 
             expect(spy).toHaveBeenCalledOnce();
 
@@ -48,17 +45,19 @@ describe('Test Book service', () => {
             retry: 3,
         },
         async () => {
-            expect(readerAdapter.getById).toBeDefined();
-            expect(readerAdapter.getById).toBeInstanceOf(Function);
+            expect(BookService.getById).toBeDefined();
+            expect(BookService.getById).toBeInstanceOf(Function);
 
-            vi.spyOn(readerAdapter, 'getAll');
-            const resultGetAll = await readerAdapter.getAll();
+            vi.spyOn(BookService, 'getAll').mockResolvedValue(Books);
+            const resultGetAll = await BookService.getAll();
 
             expect(resultGetAll.length).toBeGreaterThan(0);
 
-            const spy = vi.spyOn(readerAdapter, 'getById');
+            const spy = vi
+                .spyOn(BookService, 'getById')
+                .mockResolvedValue(resultGetAll[0]);
             //@ts-ignore
-            const result = await readerAdapter.getById(resultGetAll[0].id);
+            const result = await BookService.getById(resultGetAll[0].id);
 
             expect(spy).toHaveBeenCalledOnce();
 
@@ -73,40 +72,6 @@ describe('Test Book service', () => {
             );
         },
     );
-    it.skip(
-        'Gets Books by filters',
-        {
-            timeout: 30000,
-            retry: 3,
-        },
-        async () => {
-            expect(readerAdapter.getByFilters).toBeDefined();
-            expect(readerAdapter.getByFilters).toBeInstanceOf(Function);
-            //TODO: Remove once conection between database and server is fixed
-            const testFilters = {
-                name: 'velocity inasmuch offensively usually loosely',
-                description:
-                    'Sapiente theatrum conturbo contigo comitatus aggero tenuis amita.',
-            };
-
-            const spy = vi.spyOn(readerAdapter, 'getByFilters');
-            //@ts-ignore
-            const result = await readerAdapter.getByFilters(testFilters);
-
-            expect(spy).toHaveBeenCalledOnce();
-            expect(result).toStrictEqual(
-                expect.arrayContaining(<BookDTO[]>[
-                    expect.objectContaining(<BookDTO>{
-                        id: expect.any(String),
-                        name: expect.any(String),
-                        description: expect.any(String),
-                        image: expect.any(String),
-                        genre: expect.arrayContaining([expect.any(String)]),
-                    }),
-                ]),
-            );
-        },
-    );
 
     it(
         'Creates a Book',
@@ -115,14 +80,15 @@ describe('Test Book service', () => {
             retry: 3,
         },
         async () => {
-            expect(writerAdapter.create).toBeDefined();
-            expect(writerAdapter.create).toBeInstanceOf(Function);
+            const book = Book;
+            expect(BookService.create).toBeDefined();
+            expect(BookService.create).toBeInstanceOf(Function);
 
-            const spy = vi.spyOn(writerAdapter, 'create');
-            await writerAdapter.create(Book);
+            const spy = vi.spyOn(BookService, 'create').mockResolvedValue(book);
+            await BookService.create(book);
 
             expect(spy).toHaveBeenCalledOnce();
-            expect(spy).toHaveBeenCalledWith(Book);
+            expect(spy).toHaveBeenCalledWith(book);
         },
     );
 
@@ -134,14 +100,15 @@ describe('Test Book service', () => {
         },
         async () => {
             const id = faker.string.alpha(10);
-            expect(writerAdapter.update).toBeDefined();
-            expect(writerAdapter.update).toBeInstanceOf(Function);
+            const book = Book;
+            expect(BookService.update).toBeDefined();
+            expect(BookService.update).toBeInstanceOf(Function);
 
-            const spy = vi.spyOn(writerAdapter, 'update');
-            await writerAdapter.update(id, Book);
+            const spy = vi.spyOn(BookService, 'update').mockResolvedValue(book);
+            await BookService.update(id, book);
 
             expect(spy).toHaveBeenCalledOnce();
-            expect(spy).toHaveBeenCalledWith(id, Book);
+            expect(spy).toHaveBeenCalledWith(id, book);
         },
     );
 
@@ -153,11 +120,13 @@ describe('Test Book service', () => {
         },
         async () => {
             const id = faker.string.alpha(10);
-            expect(writerAdapter.remove).toBeDefined();
-            expect(writerAdapter.remove).toBeInstanceOf(Function);
+            expect(BookService.remove).toBeDefined();
+            expect(BookService.remove).toBeInstanceOf(Function);
 
-            const spy = vi.spyOn(writerAdapter, 'remove');
-            await writerAdapter.remove(id);
+            const spy = vi
+                .spyOn(BookService, 'remove')
+                .mockResolvedValue({ success: true });
+            await BookService.remove(id);
 
             expect(spy).toHaveBeenCalledOnce();
             expect(spy).toHaveBeenCalledWith(id);

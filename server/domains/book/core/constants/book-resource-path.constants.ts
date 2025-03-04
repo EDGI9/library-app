@@ -1,5 +1,7 @@
+const baseURL = '/library-app';
+
 export const BookResourcePathConstants = {
-    BASE: `/api/books`,
-    ROOT: `/`,
-    PARAM_ID: `/:id`,
+    BASE: `${baseURL}/api/books`,
+    ROOT: `${baseURL}/`,
+    PARAM_ID: `${baseURL}/:id`,
 };
