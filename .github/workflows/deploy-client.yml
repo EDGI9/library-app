@@ -26,6 +26,8 @@ jobs:
       - name: Build project
         run: CI=false npm run build
         working-directory: ./client
+        env:
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v4
