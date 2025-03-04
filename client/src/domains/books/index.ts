@@ -1,5 +1,8 @@
-import { BookReaderAdapter } from './adapters/book-reader.adpater';
-import { BookWriterAdapter } from './adapters/book-writer.adapter';
+import { BookDrivenReaderAdapter } from './adapters/driven/book-driven-reader.adpater';
+import { BookDrivenWriterAdapter } from './adapters/driven/book-driven-writer.adapter';
 import BookService from './service/books.service';
 
-export default BookService(BookReaderAdapter(), BookWriterAdapter());
+export default BookService(
+    BookDrivenReaderAdapter(),
+    BookDrivenWriterAdapter(),
+);
